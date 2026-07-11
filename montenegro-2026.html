@@ -24,6 +24,7 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
+  p{text-align:justify;text-align-last:left;hyphens:auto;-webkit-hyphens:auto;}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:var(--sand);
@@ -486,7 +487,6 @@
     <div class="cd-unit"><span class="cd-num" id="cdSeconds">–</span><span class="cd-label">Sek</span></div>
   </div>
   <div class="countdown-caption" style="text-align:center;font-size:.72rem;opacity:.85;margin-top:4px;">bis zur Abreise</div>
-  <div class="version-stamp" style="text-align:center;font-size:.62rem;opacity:.6;margin-top:8px;">Stand: 11.07.2026, 18:21 Uhr</div>
 </header>
 
 <main>
@@ -1366,6 +1366,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 20:20 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
