@@ -1408,6 +1408,22 @@
 
   </section>
 
+  <!-- ===== TAB: ZITATE ===== -->
+  <section id="tab-zitate" class="tab-panel">
+    <p class="muted" style="margin:0 0 12px;">Ein kleines Extra für unterwegs – ein zufälliges Zitat, live abgerufen über die API Ninjas Quotes API.</p>
+
+    <div class="card" style="text-align:center;">
+      <div id="quoteBox">
+        <p class="muted" id="quoteStatus">Lade Zitat…</p>
+        <p id="quoteText" style="font-size:1.05rem;font-style:italic;line-height:1.6;"></p>
+        <p id="quoteAuthor" style="font-weight:700;color:var(--sea);"></p>
+      </div>
+      <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadQuote()">🔄 Neues Zitat</button>
+    </div>
+
+    <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://api-ninjas.com/" target="_blank">api-ninjas.com</a>.</div>
+  </section>
+
 </main>
 
 <nav class="tabbar">
@@ -1417,6 +1433,7 @@
   <button onclick="showTab('praktisch',this)"><span class="ic">ℹ️</span>Praktisch</button>
   <button onclick="showTab('mehr',this)"><span class="ic">➕</span>Mehr</button>
   <button onclick="showTab('geschichte',this)"><span class="ic">📜</span>Geschichte</button>
+  <button onclick="showTab('zitate',this)"><span class="ic">💬</span>Zitate</button>
 </nav>
 
 <div class="modal-overlay" id="infoModal" onclick="if(event.target===this) closeInfoModal()">
@@ -1426,7 +1443,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 21:00 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 23:01 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1511,7 +1528,28 @@ window.addEventListener('load', function(){
   updateCountdown();
   setInterval(updateCountdown, 1000);
   loadLiveWeather();
+  loadQuote();
 });
+
+function loadQuote(){
+  var statusEl = document.getElementById('quoteStatus');
+  var textEl = document.getElementById('quoteText');
+  var authorEl = document.getElementById('quoteAuthor');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Zitat…'; }
+  if(textEl) textEl.textContent = '';
+  if(authorEl) authorEl.textContent = '';
+  fetch('https://api.api-ninjas.com/v2/randomquotes', {
+    headers: { 'X-Api-Key': 'valB0sV2qUCcpXfOL14MF8IihHDHvKn551RmP1Gf' }
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.length){ throw new Error('leer'); }
+    var q = data[0];
+    if(statusEl) statusEl.style.display='none';
+    if(textEl) textEl.textContent = '"' + q.quote + '"';
+    if(authorEl) authorEl.textContent = '– ' + q.author;
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Zitat aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
 
 function weatherIcon(code){
   if(code===0) return '☀️';
