@@ -1399,7 +1399,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 20:29 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 20:34 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1502,6 +1502,12 @@ function loadLiveWeather(){
     if(statusEl) statusEl.remove();
     curEl.innerHTML = '<div class="row"><span class="label">Jetzt in Podgorica</span><span class="val">'+weatherIcon(data.current.weather_code)+' '+Math.round(data.current.temperature_2m)+' °C</span></div>'+
       '<div class="row"><span class="label">Wind</span><span class="val">'+Math.round(data.current.wind_speed_10m)+' km/h</span></div>';
+    if(data.current.time){
+      var t = new Date(data.current.time);
+      var pad2 = function(n){ return n < 10 ? '0'+n : ''+n; };
+      var stamp = pad2(t.getDate())+'.'+pad2(t.getMonth()+1)+'., '+pad2(t.getHours())+':'+pad2(t.getMinutes())+' Uhr';
+      curEl.innerHTML += '<p class="muted" style="font-size:.72rem;margin:6px 0 0;">Aktualisierungsstand der Daten (API): '+stamp+'</p>';
+    }
     var dayNames = ['So','Mo','Di','Mi','Do','Fr','Sa'];
     var html = '';
     for(var i=0;i<data.daily.time.length;i++){
