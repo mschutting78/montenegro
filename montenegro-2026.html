@@ -208,6 +208,36 @@
     margin-top:10px;
   }
   .note.blue{background:#eaf3fb;border-color:#3a7ca566;color:var(--sea);}
+  .info-btn{
+    position:absolute;top:14px;right:14px;z-index:2;
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,0.35);
+    color:#fff;
+    width:30px;height:30px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.95rem;
+    font-family:inherit;
+  }
+  .info-btn:active{background:rgba(255,255,255,0.32);}
+  .modal-overlay{
+    display:none;position:fixed;inset:0;z-index:200;
+    background:rgba(20,30,40,0.55);
+    align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-card{
+    background:#fff;border-radius:16px;padding:20px;
+    max-width:420px;max-height:80vh;overflow-y:auto;
+    box-shadow:0 12px 34px rgba(0,0,0,0.35);
+  }
+  .modal-card h3{margin:0 0 10px;font-size:1.05rem;}
+  .modal-card p{font-size:.86rem;line-height:1.55;margin:8px 0;color:var(--ink);}
+  .modal-close{
+    margin-top:14px;background:var(--sea);color:#fff;border:none;
+    padding:10px 16px;border-radius:10px;font-size:.85rem;font-weight:600;
+    width:100%;font-family:inherit;
+  }
   /* Bottom nav */
   nav.tabbar{
     position:fixed;bottom:0;left:0;right:0;
@@ -434,6 +464,7 @@
 </svg>
 
 <header class="hero">
+  <button class="info-btn" onclick="openInfoModal()" aria-label="Info / Impressum">ℹ️</button>
   <h1>Montenegro 2026</h1>
   <div class="sub">18.–25. August · Markus, Julia (12) &amp; Johanna (8)</div>
 
@@ -455,7 +486,7 @@
     <div class="cd-unit"><span class="cd-num" id="cdSeconds">–</span><span class="cd-label">Sek</span></div>
   </div>
   <div class="countdown-caption" style="text-align:center;font-size:.72rem;opacity:.85;margin-top:4px;">bis zur Abreise</div>
-  <div class="version-stamp" style="text-align:center;font-size:.62rem;opacity:.6;margin-top:8px;">Stand: 11.07.2026, 18:17 Uhr</div>
+  <div class="version-stamp" style="text-align:center;font-size:.62rem;opacity:.6;margin-top:8px;">Stand: 11.07.2026, 18:21 Uhr</div>
 </header>
 
 <main>
@@ -1328,7 +1359,24 @@
   <button onclick="showTab('geschichte',this)"><span class="ic">📜</span>Geschichte</button>
 </nav>
 
+<div class="modal-overlay" id="infoModal" onclick="if(event.target===this) closeInfoModal()">
+  <div class="modal-card">
+    <h3>ℹ️ Info zu dieser Seite</h3>
+    <p>Diese Seite ist ein rein privates Projekt für die Familienreise nach Montenegro im August 2026 – keine kommerzielle Website, kein öffentliches Angebot, keine Werbung.</p>
+    <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
+    <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
+    <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
+    <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
+  </div>
+</div>
+
 <script>
+function openInfoModal(){
+  document.getElementById('infoModal').classList.add('open');
+}
+function closeInfoModal(){
+  document.getElementById('infoModal').classList.remove('open');
+}
 function openBookingLink(e){
   e.preventDefault();
   var pin = prompt('PIN eingeben, um die Booking.com-Buchung zu öffnen:');
