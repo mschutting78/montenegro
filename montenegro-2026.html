@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Montenegro 2026</title>
+<link rel="icon" type="image/svg+xml" href="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Montenegro.svg">
+<link rel="apple-touch-icon" href="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Montenegro.svg">
+<style>
+  :root{
+    --sea:#0d3b66;
+    --sea-light:#1d5b8f;
+    --terracotta:#e07a5f;
+    --sand:#f9f5ec;
+    --olive:#6a8f75;
+    --gold:#f2cc8f;
+    --ink:#22303f;
+    --muted:#6b7a8a;
+    --card:#ffffff;
+    --radius:16px;
+    --shadow:0 4px 14px rgba(13,59,102,0.12);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--sand);
+    color:var(--ink);
+    padding-bottom:76px;
+    -webkit-font-smoothing:antialiased;
+  }
+  header.hero{
+    background:linear-gradient(135deg,var(--sea) 0%,var(--sea-light) 60%,#3a7ca5 100%);
+    color:#fff;
+    padding:20px 18px 22px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;
+    right:-30px;bottom:-40px;
+    width:160px;height:160px;
+    background:radial-gradient(circle,rgba(242,204,143,0.35) 0%,rgba(242,204,143,0) 70%);
+  }
+  header.hero h1{
+    margin:0 0 2px;
+    font-size:1.4rem;
+    letter-spacing:.3px;
+  }
+  header.hero .sub{
+    font-size:.9rem;
+    opacity:.9;
+    margin-bottom:10px;
+  }
+  .flag-wrap{display:flex;justify-content:center;margin:6px 0 10px;position:relative;z-index:1;}
+  .flag-pole{position:relative;padding-left:10px;}
+  .flag-pole::before{content:"";position:absolute;left:0;top:-6px;width:4px;height:112px;background:linear-gradient(#e8cf8a,#b6903a);border-radius:2px;}
+  .flag-pole::after{content:"";position:absolute;left:-3px;top:-12px;width:10px;height:10px;border-radius:50%;background:#f2cc8f;}
+  .flag-svg, .flag-fallback{
+    display:block;width:126px;height:auto;
+    filter:drop-shadow(0 8px 10px rgba(0,0,0,0.32));
+  }
+  .flag-fallback{font-size:5rem;line-height:1;}
+  .countdown{
+    display:inline-flex;
+    align-items:stretch;
+    gap:8px;
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:10px 14px;
+    border-radius:16px;
+    font-size:.85rem;
+    position:relative;z-index:1;
+  }
+  .countdown .cd-unit{display:flex;flex-direction:column;align-items:center;min-width:38px;}
+  .countdown .cd-num{font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;}
+  .countdown .cd-label{font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;opacity:.8;margin-top:2px;}
+  .countdown .cd-sep{font-size:1.1rem;opacity:.5;align-self:center;padding-bottom:12px;}
+  main{padding:14px 14px 10px;max-width:640px;margin:0 auto;}
+  .tab-panel{display:none;animation:fade .25s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .card h3{margin:0 0 8px;font-size:1.02rem;display:flex;align-items:center;gap:8px;}
+  .card h3 .emoji{font-size:1.3rem;}
+  .card p{margin:6px 0;font-size:.92rem;line-height:1.5;color:var(--ink);}
+  .card p.muted, .muted{color:var(--muted);font-size:.85rem;}
+  .row{display:flex;justify-content:space-between;gap:10px;margin:6px 0;font-size:.92rem;}
+  .row .label{color:var(--muted);}
+  .row .val{font-weight:600;text-align:right;}
+  .pill{
+    display:inline-block;
+    background:var(--gold);
+    color:#5a4110;
+    font-size:.72rem;
+    font-weight:700;
+    padding:3px 9px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  .pill.blue{background:#dceafd;color:var(--sea);}
+  .pill.green{background:#e1efe4;color:#3d5c47;}
+  .pill.orange{background:#fbe3da;color:#a94a30;}
+  .btn-map{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    margin-top:6px;
+    background:var(--sea);
+    color:#fff;
+    text-decoration:none;
+    font-size:.7rem;
+    font-weight:600;
+    padding:4px 8px;
+    border-radius:7px;
+  }
+  .btn-map:active{opacity:.8;}
+  /* scene banners (inline SVG illustrations) */
+  .scene{position:relative;width:100%;height:150px;overflow:hidden;background:#dbe6ea;}
+  .scene svg{width:100%;height:100%;display:block;}
+  .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .scene .credit{position:absolute;right:6px;bottom:4px;font-size:.6rem;color:#fff;background:rgba(0,0,0,0.35);padding:1px 6px;border-radius:6px;}
+  .day .scene, .acc .scene{border-radius:var(--radius) var(--radius) 0 0;}
+  /* Day accordion */
+  .day{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .day-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+  }
+  .day-date{
+    background:var(--sea);
+    color:#fff;
+    border-radius:10px;
+    min-width:52px;
+    text-align:center;
+    padding:6px 4px;
+    font-size:.72rem;
+    line-height:1.1;
+  }
+  .day-date b{display:block;font-size:1.05rem;}
+  .day-head .emoji{font-size:1.35rem;}
+  .day-title{flex:1;}
+  .day-title .t1{font-weight:700;font-size:.95rem;}
+  .day-title .t2{font-size:.78rem;color:var(--muted);}
+  .chevron{transition:transform .2s;color:var(--muted);}
+  .day.open .chevron{transform:rotate(180deg);}
+  .day-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+    padding:0 16px;
+  }
+  .day.open .day-body{padding:0 16px 16px;}
+  .day-body p{font-size:.87rem;line-height:1.55;margin:6px 0;color:var(--ink);}
+  /* Accordion for highlights */
+  .acc{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .acc-head{
+    display:flex;align-items:center;gap:10px;
+    padding:15px 16px;cursor:pointer;
+  }
+  .acc-head .emoji{font-size:1.4rem;}
+  .acc-head .title{flex:1;font-weight:700;font-size:.96rem;}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 16px;}
+  .acc.open .acc-body{padding:0 16px 16px;max-height:3000px;}
+  .acc.open .chevron{transform:rotate(180deg);}
+  .acc-body p{font-size:.89rem;line-height:1.55;margin:6px 0;}
+  ul.poi{list-style:none;margin:6px 0;padding:0;}
+  ul.poi li{
+    padding:10px 0;
+    border-top:1px solid #eee2;
+    font-size:.88rem;
+    line-height:1.5;
+  }
+  ul.poi li:first-child{border-top:none;}
+  ul.poi li b{display:block;font-size:.92rem;margin-bottom:2px;}
+  .note{
+    background:#fff7e6;
+    border:1px solid #f2cc8f66;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:.82rem;
+    color:#7a5a19;
+    margin-top:10px;
+  }
+  .note.blue{background:#eaf3fb;border-color:#3a7ca566;color:var(--sea);}
+  /* Bottom nav */
+  nav.tabbar{
+    position:fixed;bottom:0;left:0;right:0;
+    background:#fff;
+    display:flex;
+    border-top:1px solid #e7e1d4;
+    box-shadow:0 -2px 10px rgba(0,0,0,0.06);
+    z-index:50;
+  }
+  nav.tabbar button{
+    flex:1;
+    background:none;border:none;
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    padding:8px 1px 7px;
+    font-size:.6rem;
+    color:var(--muted);
+    font-family:inherit;
+    white-space:nowrap;
+  }
+  nav.tabbar button .ic{font-size:1.15rem;}
+  nav.tabbar button.active{color:var(--sea);font-weight:700;}
+  a{color:var(--sea);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .stat{
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:12px;
+    text-align:center;
+  }
+  .stat .n{font-size:1.15rem;font-weight:800;color:var(--sea);}
+  .stat .l{font-size:.72rem;color:var(--muted);}
+  table.phrases{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:6px;}
+  table.phrases td{padding:6px 4px;border-top:1px solid #eee2;}
+  table.phrases td:first-child{font-weight:600;width:45%;}
+  .dish{display:flex;gap:12px;padding:12px 0;border-top:1px solid #eee2;}
+  .dish:first-child{border-top:none;padding-top:0;}
+  .dish-img{width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;background:#dbe6ea;}
+  .dish-text b{display:block;font-size:.92rem;margin-bottom:2px;}
+  .dish-text p{margin:0;font-size:.85rem;line-height:1.5;color:var(--ink);}
+  .rest{padding:12px 0;border-top:1px solid #eee2;}
+  .rest:first-child{border-top:none;padding-top:0;}
+  .rest .rname{font-weight:700;font-size:.94rem;display:flex;justify-content:space-between;gap:8px;}
+  .rest .rmeta{font-size:.78rem;color:var(--muted);margin:2px 0 4px;}
+  .rest p{margin:4px 0 0;font-size:.86rem;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<!-- ===== Reusable SVG illustrations (defined once, referenced via <use>) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe0f0"/>
+      <stop offset="1" stop-color="#f9f5ec"/>
+    </linearGradient>
+    <linearGradient id="skyEve" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d3b66"/>
+      <stop offset="1" stop-color="#e07a5f"/>
+    </linearGradient>
+    <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a7ca5"/>
+      <stop offset="1" stop-color="#0d3b66"/>
+    </linearGradient>
+
+    <filter id="waveFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" numOctaves="2" seed="4" baseFrequency="0.008 0.028" result="turb">
+        <animate attributeName="baseFrequency" dur="7s" values="0.008 0.028;0.012 0.036;0.006 0.02;0.008 0.028" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <symbol id="scene-podgorica" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <circle cx="340" cy="35" r="18" fill="#f2cc8f"/>
+      <path d="M0 110 L60 90 L110 105 L170 85 L230 100 L290 88 L400 105 L400 160 L0 160Z" fill="#6a8f75" opacity="0.5"/>
+      <path d="M0 130 L80 118 L150 128 L220 116 L300 126 L400 118 L400 160 L0 160Z" fill="#6a8f75"/>
+      <path d="M0 150 Q100 140 180 150 T400 148 L400 160 L0 160Z" fill="#1d5b8f" opacity="0.55"/>
+      <line x1="150" y1="150" x2="150" y2="95" stroke="#e9e9e9" stroke-width="4"/>
+      <line x1="150" y1="100" x2="95" y2="140" stroke="#e9e9e9" stroke-width="2"/>
+      <line x1="150" y1="100" x2="123" y2="140" stroke="#e9e9e9" stroke-width="2"/>
+      <line x1="150" y1="100" x2="150" y2="140" stroke="#e9e9e9" stroke-width="2"/>
+      <line x1="150" y1="100" x2="178" y2="140" stroke="#e9e9e9" stroke-width="2"/>
+      <line x1="150" y1="100" x2="206" y2="140" stroke="#e9e9e9" stroke-width="2"/>
+      <rect x="80" y="140" width="140" height="6" fill="#22303f"/>
+      <rect x="258" y="120" width="26" height="26" fill="#e07a5f"/>
+      <path d="M258 120 Q271 100 284 120Z" fill="#e07a5f"/>
+      <rect x="269" y="95" width="4" height="26" fill="#e07a5f"/>
+      <circle cx="271" cy="93" r="3" fill="#f2cc8f"/>
+      <rect x="243" y="128" width="6" height="32" fill="#e07a5f"/>
+      <circle cx="246" cy="126" r="3" fill="#f2cc8f"/>
+    </symbol>
+
+    <symbol id="scene-shopping" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="#f9f5ec"/>
+      <circle cx="330" cy="42" r="30" fill="#f2cc8f" opacity="0.5"/>
+      <path d="M120 70 h90 l10 70 h-110z" fill="#e07a5f"/>
+      <path d="M140 70 v-14 a20 20 0 0 1 40 0 v14" fill="none" stroke="#22303f" stroke-width="4"/>
+      <path d="M210 85 h70 l8 55 h-86z" fill="#0d3b66"/>
+      <path d="M225 85 v-10 a15 15 0 0 1 30 0 v10" fill="none" stroke="#22303f" stroke-width="3"/>
+      <rect x="60" y="95" width="24" height="34" rx="4" fill="#e07a5f"/>
+      <rect x="66" y="80" width="12" height="18" fill="#22303f"/>
+      <rect x="68" y="70" width="8" height="12" fill="#6a8f75"/>
+      <path d="M300 108 l4 10 10 4 -10 4 -4 10 -4-10-10-4 10-4z" fill="#f2cc8f"/>
+      <path d="M96 46 l3 7 7 3 -7 3 -3 7 -3-7-7-3 7-3z" fill="#f2cc8f"/>
+    </symbol>
+
+    <symbol id="scene-bar" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <circle cx="55" cy="35" r="20" fill="#f2cc8f"/>
+      <path d="M0 120 Q100 100 200 120 T400 118 L400 160 L0 160Z" fill="url(#seaGrad)"/>
+      <path d="M0 132 Q40 126 80 132 T160 132 T240 132 T320 132 T400 130" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.55"/>
+      <rect x="330" y="80" width="6" height="40" fill="#6a8f75"/>
+      <path d="M333 80 q-25 -10 -35 5" fill="none" stroke="#6a8f75" stroke-width="5"/>
+      <path d="M333 80 q25 -10 35 5" fill="none" stroke="#6a8f75" stroke-width="5"/>
+      <path d="M333 80 q-5 -25 10 -35" fill="none" stroke="#6a8f75" stroke-width="5"/>
+      <rect x="40" y="95" width="60" height="28" rx="4" fill="#e07a5f"/>
+      <rect x="105" y="95" width="60" height="28" rx="4" fill="#0d3b66"/>
+      <rect x="50" y="100" width="14" height="12" fill="#f9f5ec"/>
+      <rect x="115" y="100" width="14" height="12" fill="#f9f5ec"/>
+      <circle cx="55" cy="126" r="6" fill="#22303f"/>
+      <circle cx="85" cy="126" r="6" fill="#22303f"/>
+      <circle cx="120" cy="126" r="6" fill="#22303f"/>
+      <circle cx="150" cy="126" r="6" fill="#22303f"/>
+      <line x1="0" y1="132" x2="400" y2="132" stroke="#8a8a8a" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="scene-lake" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 90 L70 60 L140 85 L210 55 L280 80 L350 60 L400 85 L400 160 L0 160Z" fill="#0d3b66" opacity="0.3"/>
+      <path d="M0 130 Q100 115 200 128 T400 122 L400 160 L0 160Z" fill="url(#seaGrad)"/>
+      <ellipse cx="90" cy="140" rx="16" ry="6" fill="#6a8f75"/>
+      <ellipse cx="130" cy="148" rx="12" ry="5" fill="#6a8f75"/>
+      <ellipse cx="300" cy="142" rx="18" ry="6" fill="#6a8f75"/>
+      <path d="M190 128 q20 -6 40 0 l-4 10 h-32z" fill="#e07a5f"/>
+      <line x1="210" y1="128" x2="210" y2="110" stroke="#22303f" stroke-width="2"/>
+      <path d="M300 50 q10 -8 20 0 q10 -8 20 0" fill="none" stroke="#22303f" stroke-width="2"/>
+      <path d="M60 40 q8 -6 16 0 q8 -6 16 0" fill="none" stroke="#22303f" stroke-width="2"/>
+    </symbol>
+
+    <symbol id="scene-kotor" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 100 L100 20 L180 90 L260 15 L400 100 L400 160 L0 160Z" fill="#6a8f75"/>
+      <path d="M260 15 L240 40 L275 55 L245 75 L280 95" fill="none" stroke="#f9f5ec" stroke-width="3" stroke-dasharray="4 3"/>
+      <rect x="90" y="25" width="6" height="14" fill="#22303f"/>
+      <rect x="100" y="18" width="6" height="21" fill="#22303f"/>
+      <rect x="110" y="25" width="6" height="14" fill="#22303f"/>
+      <line x1="260" y1="15" x2="330" y2="70" stroke="#22303f" stroke-width="1.5"/>
+      <rect x="292" y="42" width="16" height="10" rx="2" fill="#f2cc8f" stroke="#22303f"/>
+      <path d="M0 120 Q100 108 200 120 T400 116 L400 160 L0 160Z" fill="url(#seaGrad)"/>
+      <path d="M150 135 l16 -4 4 8 -20 4z" fill="#f9f5ec"/>
+      <path d="M230 140 l14 -3 3 7 -17 3z" fill="#f9f5ec"/>
+    </symbol>
+
+    <symbol id="scene-ostrog" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 160 L40 60 L120 20 L200 55 L260 30 L400 90 L400 160Z" fill="#9aa3ab"/>
+      <path d="M0 160 L40 60 L120 20 L160 40 L120 70 L60 100 L0 160Z" fill="#7d8790"/>
+      <rect x="150" y="45" width="34" height="22" fill="#f9f5ec"/>
+      <rect x="160" y="34" width="14" height="11" fill="#f9f5ec"/>
+      <line x1="167" y1="26" x2="167" y2="34" stroke="#22303f" stroke-width="2"/>
+      <line x1="163" y1="30" x2="171" y2="30" stroke="#22303f" stroke-width="2"/>
+      <path d="M40 160 Q60 130 40 110 T60 70" fill="none" stroke="#f2cc8f" stroke-width="3" stroke-dasharray="5 4"/>
+    </symbol>
+
+    <symbol id="scene-plane" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyEve)"/>
+      <ellipse cx="90" cy="50" rx="35" ry="10" fill="#ffffff" opacity="0.65"/>
+      <ellipse cx="300" cy="90" rx="45" ry="12" fill="#ffffff" opacity="0.55"/>
+      <circle cx="330" cy="40" r="16" fill="#f2cc8f"/>
+      <g transform="translate(150,80) rotate(-10)">
+        <path d="M0 0 h70 l14 8 -14 8 h-70 l-14 -8z" fill="#f9f5ec"/>
+        <path d="M20 -2 l-25 -16 10 -2 30 16z" fill="#f9f5ec"/>
+        <path d="M20 18 l-25 16 10 2 30 -16z" fill="#f9f5ec"/>
+        <path d="M55 -3 l15 -10 6 2 -10 11z" fill="#f9f5ec"/>
+      </g>
+      <line x1="0" y1="88" x2="150" y2="88" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+    </symbol>
+
+    <symbol id="scene-budva" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <circle cx="345" cy="34" r="18" fill="#f2cc8f"/>
+      <path d="M0 120 Q100 105 200 120 T400 116 L400 160 L0 160Z" fill="url(#seaGrad)"/>
+      <path d="M150 150 q30 -55 60 0z" fill="#6a8f75"/>
+      <rect x="168" y="118" width="10" height="16" fill="#e07a5f"/>
+      <rect x="182" y="112" width="10" height="22" fill="#e07a5f"/>
+      <rect x="196" y="120" width="10" height="14" fill="#e07a5f"/>
+      <rect x="60" y="120" width="26" height="24" fill="#f2cc8f"/>
+      <rect x="90" y="112" width="22" height="32" fill="#e07a5f"/>
+      <rect x="116" y="118" width="20" height="26" fill="#f2cc8f"/>
+    </symbol>
+
+    <symbol id="scene-perast" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 100 L120 30 L220 95 L400 40 L400 160 L0 160Z" fill="#6a8f75" opacity="0.6"/>
+      <path d="M0 125 Q100 112 200 125 T400 120 L400 160 L0 160Z" fill="url(#seaGrad)"/>
+      <ellipse cx="230" cy="132" rx="26" ry="10" fill="#e9e9e9"/>
+      <rect x="220" y="112" width="20" height="20" fill="#f9f5ec"/>
+      <path d="M220 112 Q230 98 240 112Z" fill="#e07a5f"/>
+      <rect x="228" y="96" width="4" height="16" fill="#e07a5f"/>
+      <circle cx="230" cy="94" r="2.5" fill="#f2cc8f"/>
+    </symbol>
+
+    <symbol id="scene-cetinje" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 110 L90 70 L180 100 L260 65 L400 100 L400 160 L0 160Z" fill="#6a8f75" opacity="0.55"/>
+      <rect x="140" y="95" width="120" height="45" fill="#e9c98f"/>
+      <rect x="150" y="80" width="16" height="15" fill="#e9c98f"/>
+      <rect x="234" y="80" width="16" height="15" fill="#e9c98f"/>
+      <rect x="160" y="110" width="18" height="30" fill="#8a6d1f"/>
+      <rect x="222" y="110" width="18" height="30" fill="#8a6d1f"/>
+      <rect x="190" y="105" width="20" height="20" fill="#8a6d1f"/>
+    </symbol>
+
+    <symbol id="scene-tara" viewBox="0 0 400 160">
+      <rect width="400" height="160" fill="url(#skyGrad)"/>
+      <path d="M0 160 L60 40 L130 160Z" fill="#6a8f75"/>
+      <path d="M400 160 L340 40 L270 160Z" fill="#6a8f75"/>
+      <path d="M130 160 Q200 150 270 160" fill="none" stroke="#1d5b8f" stroke-width="6" opacity="0.5"/>
+      <path d="M60 70 L340 70" fill="none" stroke="#e9e9e9" stroke-width="5"/>
+      <path d="M80 70 Q90 90 100 70 Q110 90 120 70 Q130 90 140 70 Q150 90 160 70 Q170 90 180 70 Q190 90 200 70 Q210 90 220 70 Q230 90 240 70 Q250 90 260 70 Q270 90 280 70 Q290 90 300 70 Q310 90 320 70" fill="none" stroke="#e9e9e9" stroke-width="3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hero">
+  <h1>Montenegro 2026</h1>
+  <div class="sub">18.–25. August · Markus, Julia (12) &amp; Johanna (8)</div>
+
+  <div class="flag-wrap">
+    <div class="flag-pole">
+      <img class="flag-svg" alt="Offizielle Flagge von Montenegro" loading="eager"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Montenegro.svg"
+        onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'flag-fallback',textContent:'🇲🇪'}));">
+    </div>
+  </div>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-unit"><span class="cd-num" id="cdDays">–</span><span class="cd-label">Tage</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdHours">–</span><span class="cd-label">Std</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdMinutes">–</span><span class="cd-label">Min</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdSeconds">–</span><span class="cd-label">Sek</span></div>
+  </div>
+  <div class="countdown-caption" style="text-align:center;font-size:.72rem;opacity:.85;margin-top:4px;">bis zur Abreise</div>
+</header>
+
+<main>
+
+  <!-- ===== TAB: ÜBERSICHT ===== -->
+  <section id="tab-uebersicht" class="tab-panel active">
+
+    <div class="card">
+      <p>Acht Tage Montenegro mit Julia (12) und Johanna (8): zwei ruhige Tage in Podgorica, ein Ausflug ans Meer, ein Tag mitten im Nationalpark Skutarisee – und dank Mietwagen für die gesamte Reisezeit jede Menge Flexibilität für spontane Umwege. Diese Seite ist der gemeinsame Reisebegleiter fürs Handy: alle Flug- und Mietwagendaten, der Tagesplan und sämtliche Vorschläge an einem Ort, auch ohne Internetverbindung nutzbar (Seite einmal geladen lassen und ggf. zum Homescreen hinzufügen).</p>
+    </div>
+
+    <div class="grid2" style="margin-bottom:14px;">
+      <div class="stat"><div class="n">7</div><div class="l">Nächte</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Reisende</div></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="emoji">✈️</span> Flüge</h3>
+      <span class="pill blue">HINFLUG</span>
+      <div class="row"><span class="label">Flug</span><span class="val">Wizz Air W6 7640</span></div>
+      <div class="row"><span class="label">Strecke</span><span class="val">Ljubljana → Podgorica</span></div>
+      <div class="row"><span class="label">Datum</span><span class="val">Di, 18.08.2026</span></div>
+      <div class="row"><span class="label">Ankunft TGD</span><span class="val">19:05 Uhr</span></div>
+      <hr style="border:none;border-top:1px solid #eee;margin:10px 0;">
+      <span class="pill orange">RÜCKFLUG</span>
+      <div class="row"><span class="label">Flug</span><span class="val">Wizz Air W6 7639</span></div>
+      <div class="row"><span class="label">Strecke</span><span class="val">Podgorica → Ljubljana</span></div>
+      <div class="row"><span class="label">Datum</span><span class="val">Di, 25.08.2026</span></div>
+      <div class="row"><span class="label">Ankunft LJU</span><span class="val">17:15 Uhr</span></div>
+      <p class="muted">Abflug ab Podgorica vermutlich ca. 15:30–15:45 Uhr (Flugzeit ~1,5 Std.) – bitte im Ticket exakt prüfen. Online-Check-in bei Wizz Air spart am Flughafen Zeit und meist auch Gebühren; Boarding-Pass am besten schon zuhause als PDF/Screenshot sichern, falls unterwegs kein Empfang ist.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="emoji">🚗</span> Mietwagen</h3>
+      <div class="row"><span class="label">Anbieter</span><span class="val">U-Save</span></div>
+      <div class="row"><span class="label">Fahrzeug</span><span class="val">Renault Mégane o. ä.</span></div>
+      <div class="row"><span class="label">Übernahme</span><span class="val">Flughafen Podgorica</span></div>
+      <div class="row"><span class="label">Zeitraum</span><span class="val">gesamter Aufenthalt</span></div>
+      <p>Mitbringen: Führerschein, Kreditkarte (für die Kaution), Reisepass/Personalausweis und die Buchungsbestätigung. Kurzer Check bei Übernahme lohnt sich: bestehende Kratzer/Dellen fotografieren, Tankfüllung und Kilometerstand notieren.</p>
+      <p class="muted">Straßen in Montenegro sind meist gut, aber in den Bergen (z.B. Richtung Kotor/Lovćen oder Ostrog) eng und kurvig – entspannt fahren und Pausen einplanen. Radarkontrollen sind verbreitet, Tempolimits ernst nehmen. Tanken funktioniert wie in Österreich, in Podgorica selbst gibt es meist Parkautomaten oder Parkschein-Apps in der Innenstadt.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="emoji">🏠</span> Unterkunft</h3>
+      <p><b>Ferienwohnung "Zoya"</b><br>Ilije Plamenca, 81000 Podgorica, Montenegro</p>
+      <p class="muted">Vom Flughafen (TGD) ca. 12 km / 15–20 Min. Fahrzeit. Zentrumsnahe Lage in Podgorica – Altstadt, Einkaufszentren und die Ausfallstraßen Richtung Skutarisee, Bar und Kotor sind von dort aus in wenigen Autominuten erreichbar.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/place/Zoya+Apartment+Podgorica/@42.4287054,19.2422254,756m/data=!3m2!1e3!4b1!4m6!3m5!1s0x134deb853d9bd2b3:0x2f52ddde1d854bcb!8m2!3d42.4287015!4d19.2448057!16s%2Fg%2F11yj7hp3l1?entry=ttu">📍 In Google Maps öffnen</a>
+        <a class="btn-map" style="background:#003580;" href="#" onclick="return openBookingLink(event)">🔒 Booking.com Buchung</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: TAGESPLAN ===== -->
+  <section id="tab-tagesplan" class="tab-panel">
+    <p class="muted" style="margin:0 0 12px;">Ein Vorschlag – Reihenfolge von Natur-/Badetag je nach Wetter flexibel tauschbar. Tippen zum Aufklappen.</p>
+
+    <div class="day" data-day="1">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-plane"/></svg><img loading="lazy" alt="Flughafen Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/Podgorica_Airport.JPG?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">DI<b>18.8</b></div>
+        <div class="emoji">🛬</div>
+        <div class="day-title"><div class="t1">Anreise</div><div class="t2">Ankunft 19:05, Mietwagen, Ferienwohnung</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Landung um 19:05 Uhr in Podgorica – zu dieser Zeit ist es im August noch hell und angenehm warm. Zuerst geht es zum U-Save-Schalter für die Mietwagenübernahme, danach ca. 15–20 Minuten Fahrt zur Ferienwohnung Zoya.</p>
+        <p>Unterwegs oder direkt in der Nähe der Ferienwohnung lohnt ein kurzer Supermarkt-Stopp für Wasser, Obst und Frühstück am nächsten Morgen. Der restliche Abend bleibt bewusst frei – ankommen, auspacken, die Kinder nach dem Flugtag zur Ruhe kommen lassen.</p>
+        <p style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Podgorica+Airport">📍 Flughafen Podgorica</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/place/Zoya+Apartment+Podgorica/@42.4287054,19.2422254,756m/data=!3m2!1e3!4b1!4m6!3m5!1s0x134deb853d9bd2b3:0x2f52ddde1d854bcb!8m2!3d42.4287015!4d19.2448057!16s%2Fg%2F11yj7hp3l1?entry=ttu">📍 Ferienwohnung Zoya</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="2">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-podgorica"/></svg><img loading="lazy" alt="Millennium-Brücke Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/Millennium_Bridge_in_Podgorica.JPG?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">MI<b>19.8</b></div>
+        <div class="emoji">🏛️</div>
+        <div class="day-title"><div class="t1">Podgorica Sightseeing</div><div class="t2">Altstadt, Millennium-Brücke, Gorica</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Vormittag: Stara Varoš (Altstadt) zu Fuß erkunden – enge Gassen, osmanische Moscheen und der Uhrturm aus dem 17. Jahrhundert. Ein kurzer Abstecher zur Alten Brücke über die Morača rundet den Rundgang ab. Danach die moderne Millennium-Brücke überqueren, das markante Wahrzeichen Podgoricas mit ihrem schrägen Pylon.</p>
+        <p>Mittags Ankunft am Trg Nezavisnosti mit anschließender Fußgängerzone – dort gibt es reichlich Cafés und Eisdielen für eine Pause. Nachmittags optional ein kurzer, nicht zu langer Stopp bei der Auferstehungskathedrale (Schultern/Knie bedecken), und zum Ausklang der Gorica-Hügel mit Spielplatz und schattigen Spazierwegen – ideal, um die Kinder nach dem Stadtprogramm noch austoben zu lassen. Details und Adressen siehe Tab „Highlights".</p>
+        <p style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Stara+Varos+Podgorica">📍 Stara Varoš</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Millennium+Bridge+Podgorica">📍 Millennium-Brücke</a>
+          <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=fhqhNUrZgUE">📺 Video</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gorica+Hill+Podgorica">📍 Gorica-Hügel</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="3">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-lake"/></svg><img loading="lazy" alt="Skutarisee" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montenegro_Virpazar_Skadarsko_jezero.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">DO<b>20.8</b></div>
+        <div class="emoji">🚢</div>
+        <div class="day-title"><div class="t1">Naturtag: Skutarisee</div><div class="t2">Bootsfahrt ab Virpazar</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Fahrt mit dem Mietwagen nach Virpazar (~35–40 Minuten ab Podgorica), dem touristischen Hauptort am größten See des Balkans. Von dort aus geht es mit einem kleinen Boot hinaus auf den Skutarisee – vorbei an Seerosenfeldern, Kormoranen, Reihern und mit etwas Glück den seltenen Dalmatiner-Pelikanen.</p>
+        <p>Ein ruhiger, kinderfreundlicher Tag ohne anstrengende Wanderungen – ideal für Johanna. Je nach gebuchter Tourlänge lässt sich noch ein Kloster am Ufer besichtigen. Zum Mittagessen bietet Virpazar mehrere einfache Restaurants mit Blick auf den See.</p>
+        <p style="margin-top:8px;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Virpazar+Montenegro">📍 Virpazar</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="4">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-shopping"/></svg><img loading="lazy" alt="Delta City Einkaufszentrum Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/'Delta_city'_Shopping_mall_-_panoramio.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">FR<b>21.8</b></div>
+        <div class="emoji">💅</div>
+        <div class="day-title"><div class="t1">Shopping &amp; Nails</div><div class="t2">Delta City / Capital Plaza</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Ein bewusst entspannter Tag ohne straffes Programm: Vormittags Delta City (BIG Fashion) und/oder Capital Plaza mit den gängigen internationalen Modeketten. Dazwischen ein Nagelstudio-Termin für Julia – am besten vorher telefonisch oder über Instagram bestätigen, da Öffnungszeiten sich ändern können.</p>
+        <p>Für Johanna gibt es in beiden Centern Spielecken bzw. einen Kinderspielplatz. Bei Regen oder Mittagshitze ist das Cineplexx-Kino im Delta City eine gute Ausweichoption. Details und Salon-Liste siehe Tab „Highlights".</p>
+        <p style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Delta+City+Podgorica">📍 Delta City</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Capital+Plaza+Podgorica">📍 Capital Plaza</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="5">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-ostrog"/></svg><img loading="lazy" alt="Kloster Ostrog" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montenegro_-_Ostrog_monastery.JPG?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">SA<b>22.8</b></div>
+        <div class="emoji">⛰️</div>
+        <div class="day-title"><div class="t1">Freier Tag / Ostrog</div><div class="t2">Kloster (Halbtag) + Erholung</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Bewusster Puffertag mitten in der Reise, ohne festes Programm – und bewusst kein Mietwagen-Ausflug an die Küste an einem Samstag, wenn rund um Kotor mit deutlich mehr Verkehr und vollen Parkplätzen zu rechnen ist. Wer trotzdem Lust auf einen kürzeren Ausflug hat: Kloster Ostrog liegt nur rund eine Stunde entfernt und ist spektakulär in eine steile Felswand gebaut – als Halbtagesausflug am Vormittag gut machbar.</p>
+        <p>Ansonsten ein guter Tag für Erholung, Pool-/Ruhezeit oder einen entspannten Bummel in Podgorica – nach vier ereignisreichen Tagen tut eine Pause allen gut.</p>
+        <p style="margin-top:8px;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Ostrog+Monastery">📍 Kloster Ostrog</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="6">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-bar"/></svg><img loading="lazy" alt="Strand in Bar" src="https://commons.wikimedia.org/wiki/Special:FilePath/Main_town_beach_in_Bar,_Montenegro.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">SO<b>23.8</b></div>
+        <div class="emoji">🏖️</div>
+        <div class="day-title"><div class="t1">Badetag Bar</div><div class="t2">Mit dem Zug ans Meer</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Statt mit dem Mietwagen geht es heute mit dem Zug ans Meer – für die Kinder ein Erlebnis für sich. Ab dem Bahnhof Podgorica dauert die Fahrt nach Bar nur rund eine Stunde, mehrmals täglich, günstig und ohne Umsteigen.</p>
+        <p><b>Zum Bahnhof:</b> Der Bahnhof Podgorica (Željeznička stanica) liegt am Trg golootočkih žrtava, ca. 3–4 km von der Ferienwohnung in Zabjelo entfernt – mit dem Auto etwa 8–10 Minuten. Bahnhof und Busbahnhof liegen direkt nebeneinander auf demselben Platz, beide mit eigenem Parkplatz direkt beim Gebäude. Genaue Preise/Kapazität vor Ort prüfen, an einem Sommermorgen lieber etwas Zeitpuffer einplanen.</p>
+        <p>In Bar angekommen ist der Kiesstrand Topolica die beste Wahl für einen entspannten Familientag: flaches Wasser, gute Infrastruktur, Spielplatz in der Nähe. Alternativ der etwas sandigere Šušanj-Strand mit mehr Beach-Clubs. Wer noch Energie übrig hat, kann kurz einen Blick auf die Ruinen von Stari Bar werfen – für einen ausgiebigen Museumsbesuch reicht der Tag mit Kindern aber eher nicht. Details und Fahrplan-Hinweise siehe Tab „Highlights".</p>
+        <p style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Zeljeznicka+stanica+Podgorica">📍 Bahnhof Podgorica</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Plaza+Topolica+Bar+Montenegro">📍 Strand Topolica</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="7">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-kotor"/></svg><img loading="lazy" alt="Bucht von Kotor" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Kotor_from_Lepetani's_road.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">MO<b>24.8</b></div>
+        <div class="emoji">🚡</div>
+        <div class="day-title"><div class="t1">Bonus: Bucht von Kotor</div><div class="t2">Altstadt Kotor + Lovćen-Seilbahn</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Der Ausflug zur Bucht von Kotor liegt bewusst auf dem Montag statt am Wochenende – am Samstag ist an der Küste rund um Kotor erfahrungsgemäß deutlich mehr los (Tagesausflügler, Stau, volle Parkplätze), unter der Woche ist die Anfahrt entspannter. Ca. 1–1,5 Stunden je Strecke, am besten früh starten, um genug Zeit zu haben.</p>
+        <p>Highlight für die ganze Familie ist die Lovćen-Seilbahn direkt bei Kotor, die einen spektakulären Panoramablick über die gesamte Bucht bietet. Danach bleibt Zeit für einen Bummel durch die verwinkelte Altstadt Kotors mit ihren Katzen, Cafés und der Festungsmauer. Da dies der letzte volle Tag vor dem Rückflug ist, am Abend gleich noch die Koffer packen.</p>
+        <p style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kotor+Cable+Car">📍 Lovćen-Seilbahn</a>
+          <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=GPgdk_bZGUA">📺 Video Seilbahn</a>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kotor+Old+Town">📍 Altstadt Kotor</a>
+          <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=4XIBw6J7dp4">📺 Video Altstadt</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day" data-day="8">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-plane"/></svg><img loading="lazy" alt="Flughafen Ljubljana" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ljubljana_airport_2017.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-date">DI<b>25.8</b></div>
+        <div class="emoji">🛫</div>
+        <div class="day-title"><div class="t1">Abreise</div><div class="t2">Rückflug, Ankunft LJU 17:15</div></div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="day-body">
+        <p>Vormittag bleibt noch Zeit zum Auschecken und für letzte Erledigungen – ein finaler Blick auf die Bucht oder noch ein Eis in der Fußgängerzone. Danach den Mietwagen rechtzeitig, am besten mindestens zwei Stunden vor Abflug, am Flughafen zurückgeben, um Stress zu vermeiden.</p>
+        <p>Abflug ab Podgorica vermutlich früher Nachmittag, Ankunft in Ljubljana um 17:15 Uhr – exaktes Abflugticket vorher nochmal prüfen.</p>
+        <p style="margin-top:8px;">
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Podgorica+Airport">📍 Flughafen Podgorica</a>
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: HIGHLIGHTS ===== -->
+  <section id="tab-highlights" class="tab-panel">
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-podgorica"/></svg><img loading="lazy" alt="Osmanische Altstadt Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/Starodoganjska_Mosque_-_Podgorica.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🏛️</div><div class="title">Sightseeing Podgorica</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Podgorica ist keine klassische Postkarten-Hauptstadt, sondern eine ruhige, überschaubare Stadt mit einem historischen Kern und einigen modernen Wahrzeichen – gut an einem Tag zu Fuß erkundbar, ohne die Kinder zu überfordern.</p>
+        <ul class="poi">
+          <li><b>Stara Varoš (Altstadt)</b>Osmanisches Viertel mit engen Gassen und Steinhäusern; enthält die Starodoganjska- und die Osmanagića-Moschee, beide aktiv genutzt, kostenloser respektvoller Kurzbesuch möglich.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Stara+Varos+Podgorica">📍 Maps</a></li>
+          <li><b>Sahat Kula (Uhrturm)</b>Wahrzeichen aus dem 17. Jahrhundert mitten in der Altstadt – kurzer, aber lohnender Fotostopp.</li>
+          <li><b>Millennium-Brücke</b>Moderne Schrägseilbrücke über die Morača (2005 eröffnet, 173 m lang, 57 m hoher Pylon) – das fotogenste Wahrzeichen der Stadt, 5–10 Minuten Fotostopp.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Millennium+Bridge+Podgorica">📍 Maps</a>
+            <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=fhqhNUrZgUE">📺 Video</a></li>
+          <li><b>Trg Nezavisnosti + Fußgängerzone</b>Zentraler, autofreier Platz mit Brunnen; anschließend die Fußgängerzone Hercegovačka/Njegoševa mit Cafés, Eisdielen und kleinen Boutiquen – gute Pause nach dem Sightseeing.</li>
+          <li><b>Auferstehungskathedrale (Hram Hristovog Vaskrsenja)</b>Bulevar Džordža Vašingtona 3. Ca. Mo–Fr 08–20, Sa 08–21, So 07–21 Uhr, Eintritt frei. Beeindruckende Fresken und sechs Kuppeln; Schultern/Knie bedecken, 20–40 Minuten reichen völlig.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Cathedral+of+Christ%27s+Resurrection+Podgorica">📍 Maps</a></li>
+          <li><b>Gorica-Hügel</b>Bewaldeter Hügel mitten in der Stadt mit Wanderwegen, Abenteuerspielplatz und Aussichtspunkt – guter Ausklang für Kinder am Nachmittag, wenn noch Energie übrig ist.</li>
+        </ul>
+        <p class="muted">Podgorica hieß von 1946 bis 1992 „Titograd" und wurde im Zweiten Weltkrieg fast vollständig zerstört – daher der überwiegend moderne, funktionale Charakter der Stadt abseits der Altstadt. Genau dieser Kontrast aus osmanischem Kern und sozialistischer/moderner Architektur macht einen Spaziergang interessant.</p>
+        <div class="note">Museen (z.B. König-Nikola-Palast) mit 8/12 Jahren eher auslassen – Museumsmüdigkeit droht. Empfohlene Route: Altstadt → Alte Brücke → Millennium-Brücke → Platz/Pause → optional Kathedrale → Gorica-Hügel.</div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-shopping"/></svg><img loading="lazy" alt="Delta City Einkaufszentrum Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/'Delta_city'_Shopping_mall_-_panoramio.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🛍️</div><div class="title">Shopping &amp; Nails</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Podgorica hat zwei große, moderne Einkaufszentren sowie eine kleinteiligere Einkaufsstraße in der Altstadt – für jeden Geschmack und jedes Wetter ist etwas dabei.</p>
+        <ul class="poi">
+          <li><b>Delta City (heute „BIG Fashion")</b>Größtes Center der Stadt: Zara, Nike, Tommy Hilfiger, Mango, Bershka, Pull&amp;Bear, Stradivarius, Guess, NewYorker, Office Shoes u.v.m. Mehrere Cafés (u.a. Costa Coffee), zudem ein Cineplexx-Kino mit sechs Sälen als gute Regenoption.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Delta+City+Podgorica">📍 Maps</a></li>
+          <li><b>Capital Plaza / Mall of Montenegro</b>Bulevar Save Kovačevića 74 – Designerboutiquen, der überdachte „Green Bazaar", Cafés und Restaurants. Auf Ebene -1 zusätzlich Spa/Fitness, ein Bio-Markt und ein Kinderspielplatz.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Capital+Plaza+Podgorica">📍 Maps</a></li>
+          <li><b>Hercegovačka/Njegoševa</b>Fußgängerzone in der Altstadt mit kleinen, unabhängigen Boutiquen, Cafés und Restaurants – lässt sich gut direkt mit dem Sightseeing-Spaziergang verbinden.</li>
+        </ul>
+        <p><b>Nagelstudio-Optionen für Julia (12):</b></p>
+        <ul class="poi">
+          <li><b>INESNAILZONE</b>Njegoševa 40 (Souterrain), zentrumsnah. Mo–Fr 09–20, Sa 09–16 Uhr. Tel. +382 60 907 1983, Instagram @inesnailzone.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=INESNAILZONE+Njegoseva+Podgorica">📍 Maps</a></li>
+          <li><b>LCN Nails</b>Direkt bei/im Delta City gelegen – Facebook-Profil mit Fotos vorhanden.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=LCN+Nails+Delta+City+Podgorica">📍 Maps</a></li>
+          <li><b>SofiaMed Beauty Center</b>Manikür/Pedikür im Angebot, Preisliste auf sofiamed.me einsehbar – laut Website mit eigenem Standort in Podgorica (genaue Adresse nicht öffentlich gelistet, am besten vorab telefonisch/online erfragen).
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=SofiaMed+Beauty+Center+Podgorica">📍 Maps</a></li>
+          <li><b>Salon Expert</b>Bulevar Stanka Radonjića 85 – etablierter Beauty-Salon mit Maniküre/Pediküre, u.a. Crystal-Nails-Produkte. Tel. +382 68 090 990, Instagram @salonexpert.me.
+            <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Salon+Expert+Bulevar+Stanka+Radonjica+85+Podgorica">📍 Maps</a></li>
+        </ul>
+        <p class="muted">Beide Center haben durchgehend Mo–So geöffnet (meist ca. 10–22 Uhr), auch sonntags – anders als kleinere Geschäfte in der Altstadt, die sonntags oft geschlossen bleiben.</p>
+        <div class="note">Salons vorab telefonisch oder über Instagram bestätigen (Öffnungszeiten &amp; Termin) – Online-Angaben sind teils widersprüchlich bzw. nicht aktuell.</div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-bar"/></svg><img loading="lazy" alt="Strand in Bar" src="https://commons.wikimedia.org/wiki/Special:FilePath/Main_town_beach_in_Bar,_Montenegro.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🚂</div><div class="title">Badetag Bar (mit dem Zug)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Statt der bequemen Anreise mit dem Mietwagen ist die Zugfahrt selbst schon ein kleines Abenteuer für die Kinder – und Bar liegt landschaftlich reizvoll direkt am Meer.</p>
+        <div class="row"><span class="label">Fahrzeit</span><span class="val">ca. 1 Std.</span></div>
+        <div class="row"><span class="label">Abfahrten</span><span class="val">ca. alle 2–3 Std., ab 5:10 Uhr</span></div>
+        <div class="row"><span class="label">Ticketkauf</span><span class="val">nur am Schalter, Bahnhof</span></div>
+        <p><b>Bahnhof Podgorica (Željeznička stanica):</b> Trg golootočkih žrtava 7, direkt neben dem Busbahnhof am selben Platz. Von der Ferienwohnung in Zabjelo mit dem Auto ca. 8–10 Minuten (rund 3–4 km). Beide Bahnhöfe haben einen eigenen Parkplatz direkt am Gebäude – genaue Kapazität/Preis am besten vor Ort ansehen, an einem Sommermorgen etwas Zeitpuffer für Parkplatzsuche einplanen.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Zeljeznicka+stanica+Podgorica">📍 Bahnhof Podgorica in Maps</a>
+        <p><b>Strände:</b> Topolica (500 m Kiesstrand, sehr zugänglich, flaches Wasser, viele Services, Spielplatz) ist die beste Wahl für Johanna und Julia. Alternativ Šušanj – etwas sandiger, mehr Beach-Clubs, ebenfalls direkt an der Strandpromenade.</p>
+        <p><b>Stari Bar</b> (Altstadtruinen) liegt ca. 4 km entfernt, dazu Stara Maslina, einer der ältesten Olivenbäume der Welt. Mit Kindern und nur einem Tag ist die Kombination aus langem Strandtag und ausgiebiger Ruinenbesichtigung ambitioniert – realistisch ist eher entweder ein reiner Strandtag oder ein kurzer Vormittagsstopp in Stari Bar vor dem Strand.</p>
+        <p class="muted">Nahe Stari Bar steht die „Stara Maslina", einer der ältesten Olivenbäume der Welt – Schätzungen gehen von über 2.000 Jahren Alter aus. Ein netter Kurzstopp, falls doch noch etwas Zeit vor dem Strand bleibt.</p>
+        <div class="note">Der Fahrplan für August 2026 wird erst kurz vor Saisonbeginn veröffentlicht – auf <b>zpcg.me</b> nochmal prüfen. Bahnhof Podgorica Tel. +382 20 441 211, Bahnhof Bar Tel. +382 30 301 619.</div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-lake"/></svg><img loading="lazy" alt="Skutarisee" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montenegro_Virpazar_Skadarsko_jezero.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🌿</div><div class="title">Naturerlebnis Skutarisee</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Der Skutarisee ist der größte See des Balkans und gleichzeitig einer der wichtigsten Vogel-Lebensräume Europas – ein deutlicher Kontrast zu den Städtetagen und der ruhigste, familienfreundlichste Programmpunkt der Reise.</p>
+        <p><b>Basisorte für Bootstouren:</b> Virpazar (beste Infrastruktur, meiste Anbieter, gute Wahl für den ersten Besuch), Rijeka Crnojevića, Vranjina sowie das kleinere, ursprünglichere Godinje.</p>
+        <div class="row"><span class="label">Tour 2 Std.</span><span class="val">ca. € 60 (1–5 Pers.)</span></div>
+        <div class="row"><span class="label">Tour 5 Std.</span><span class="val">ca. € 150 (1–5 Pers.)</span></div>
+        <p>Zu sehen gibt es Wasserlilienfelder, Kormorane, Reiher, mit etwas Glück die seltenen Dalmatiner-Pelikane, sowie je nach Route kleine Inselklöster. Die ruhige Bootsfahrt erfordert keine Wanderung und ist damit besonders gut für Johanna geeignet.</p>
+        <p class="muted">Der See ist eines der bedeutendsten Feuchtgebiete Europas (Ramsar-Konvention) und liegt auf der Grenze zu Albanien, wo er „Liqeni i Shkodrës" heißt – der montenegrinische Teil steht seit 1983 als Nationalpark unter Schutz.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Virpazar+Montenegro">📍 Virpazar in Maps</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-kotor"/></svg><img loading="lazy" alt="Bucht von Kotor" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Kotor_from_Lepetani's_road.jpg?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🚡</div><div class="title">Bonus: Kotor &amp; Lovćen-Seilbahn</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Die Bucht von Kotor gehört zu den meistfotografierten Orten des Balkans: schroffe Berge fallen direkt ins tiefblaue Wasser, dazwischen die verwinkelte, von Venedig geprägte UNESCO-Altstadt Kotor mit Festungsmauer, Katzen und unzähligen kleinen Plätzen.</p>
+        <p>Die Lovćen-Seilbahn bei Kotor ist <b>in Betrieb</b> (Saison 2026 seit 1. Mai, über 400.000 Besucher im Jahr 2025) und bringt in wenigen Minuten zu einem grandiosen Panoramablick über die gesamte Bucht – ein echtes Highlight für die ganze Familie und deutlich weniger anstrengend als eine Wanderung.</p>
+        <p class="muted">Die geplante Erweiterung Lovćen–Cetinje ist erst für 2027 vorgesehen und im August 2026 noch nicht nutzbar.</p>
+        <p class="muted">Die Altstadt Kotors steht seit 1979 auf der UNESCO-Welterbeliste – im selben Jahr richtete ein schweres Erdbeben große Schäden an, viele Gebäude wurden originalgetreu restauriert. Wer mag, kann die 1.350 Stufen zur Festung San Giovanni hochsteigen – bei der Hitze im August mit Kindern aber eher kein Muss, die Seilbahn bietet den ähnlichen Blick bequemer.</p>
+        <p><b>Preis Seilbahn (Hin/Rück):</b> Erwachsene ca. € 15–22, Kinder ca. € 8–12. Im Hochsommer sind Online-Tickets für die Morgenslots oft ausverkauft – vorab online buchen spart zusätzlich 5–10 %.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kotor+Cable+Car">📍 Maps</a>
+        <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=GPgdk_bZGUA">📺 Video Seilbahn</a>
+        <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=4XIBw6J7dp4">📺 Video Altstadt Kotor</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><use href="#scene-ostrog"/></svg><img loading="lazy" alt="Kloster Ostrog" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montenegro_-_Ostrog_monastery.JPG?width=800" onerror="this.nextElementSibling.remove();this.remove()"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">⛰️</div><div class="title">Bonus: Kloster Ostrog</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Das berühmteste Kloster Montenegros liegt spektakulär in eine senkrechte Felswand gebaut, gut sichtbar schon von Weitem, und ist eines der meistbesuchten religiösen Ziele auf dem gesamten Balkan – auch für Nicht-Gläubige allein wegen der Lage beeindruckend.</p>
+        <p>Die Anfahrt dauert ca. eine Stunde ab Podgorica; ein Besuch lässt sich gut als kurzer Halbtagesausflug am Puffertag (22.8.) mit Erholung am Nachmittag kombinieren.</p>
+        <p class="muted">Das Kloster besteht aus zwei Teilen: dem „Unteren Kloster" im Tal (17. Jh.) und dem berühmten „Oberen Kloster" in der Felswand, wo die Reliquien des Heiligen Vasilije von Ostrog aufbewahrt werden – ihm werden bis heute Wunder zugeschrieben, weshalb jährlich über eine Million Pilger unterschiedlichster Konfessionen anreisen.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Ostrog+Monastery">📍 Maps</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: PRAKTISCH ===== -->
+  <section id="tab-praktisch" class="tab-panel">
+    <p class="muted" style="margin:0 0 12px;">Tippen zum Aufklappen.</p>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">💶</div><div class="title">Währung &amp; Sprache</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Montenegro ist <b>nicht EU-Mitglied</b>, verwendet aber einseitig den <b>Euro</b> als Zahlungsmittel. EU-Roaming gilt hier <b>nicht</b>.</p>
+        <p>Landessprache ist Montenegrinisch (dem Serbischen/Kroatischen sehr ähnlich), in Tourismusorten und Städten wird aber überwiegend gut Englisch gesprochen, besonders von jüngerem Personal.</p>
+        <table class="phrases">
+          <tr><td>Zdravo</td><td>Hallo</td></tr>
+          <tr><td>Dobar dan</td><td>Guten Tag</td></tr>
+          <tr><td>Hvala</td><td>Danke</td></tr>
+          <tr><td>Molim</td><td>Bitte</td></tr>
+          <tr><td>Da / Ne</td><td>Ja / Nein</td></tr>
+          <tr><td>Izvinite</td><td>Entschuldigung</td></tr>
+          <tr><td>Ne razumijem</td><td>Ich verstehe nicht</td></tr>
+          <tr><td>Govorite li njemački?</td><td>Sprechen Sie Deutsch?</td></tr>
+          <tr><td>Gdje je...?</td><td>Wo ist...?</td></tr>
+          <tr><td>Koliko košta?</td><td>Was kostet das?</td></tr>
+          <tr><td>Račun, molim</td><td>Die Rechnung, bitte</td></tr>
+          <tr><td>Dobar tek!</td><td>Guten Appetit!</td></tr>
+          <tr><td>Živjeli!</td><td>Prost!</td></tr>
+          <tr><td>Doviđenja</td><td>Auf Wiedersehen</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">📶</div><div class="title">Internet: m:tel eSIM</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="row"><span class="label">Paket</span><span class="val">m:tel Tourist eSIM 500 GB</span></div>
+        <div class="row"><span class="label">Gültigkeit</span><span class="val">15 Tage, Montenegro + WB6</span></div>
+        <p>Volle Geschwindigkeit ohne Drosselung, reicht für die gesamte Reisedauer locker. Am besten schon vor der Abreise online kaufen (Pass-Upload nötig, dauert nur wenige Minuten) und die eSIM erst bei der Einreise in Podgorica aktivieren – dann ist ab Landung sofort Datenverbindung da.</p>
+        <p class="muted">Hinweis: m:tel firmiert mittlerweile unter der Marke „One" (One Crna Gora) – der Online-Kauf läuft über deren Tourist-Seite.</p>
+        <a class="btn-map" target="_blank" href="https://1.me/cg/for-tourists/">🔗 eSIM online kaufen (1.me)</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🚨</div><div class="title">Notrufnummern</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="row"><span class="label">Europaweiter Notruf</span><span class="val">112</span></div>
+        <div class="row"><span class="label">Polizei</span><span class="val">122</span></div>
+        <div class="row"><span class="label">Feuerwehr</span><span class="val">123</span></div>
+        <div class="row"><span class="label">Rettung</span><span class="val">124</span></div>
+        <p class="muted">Bei akuten Notfällen zählt die 112 – funktioniert auch ohne lokale SIM-Karte und wird auf Englisch entgegengenommen.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">☀️</div><div class="title">Wetter im August</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Podgorica liegt im Landesinneren und gilt als eine der heißesten Städte Europas im Sommer – Tageshöchstwerte um 33–37 °C sind normal, die Abende kühlen etwas ab. An der Küste (Bar, Kotor) ist es dank Meeresbrise meist einige Grad erträglicher. Für die Städtetage empfiehlt sich ein früher Start am Vormittag, die heißeste Zeit über Mittag eher für Pausen, Shopping oder das Boot auf dem Skutarisee zu nutzen.</p>
+        <p><a class="btn-map" target="_blank" href="https://www.accuweather.com/de/me/podgorica/56276/weather-forecast/56276">🌤️ Aktuelle Wettervorhersage Podgorica (AccuWeather)</a></p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🧳</div><div class="title">Packtipps für die Kinder</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Badesachen &amp; Handtuch, Sonnenschutz mit hohem Lichtschutzfaktor, Kopfbedeckung, bequeme, geschlossene Schuhe (Kopfsteinpflaster in den Altstädten, wackelige Bootsstege), wiederbefüllbare Wasserflaschen sowie eine kleine Reiseapotheke (Pflaster, Fieber-/Schmerzmittel, Mittel gegen Reiseübelkeit für die Bootsfahrt).</p>
+        <p class="muted">Steckdosen und Stromnetz entsprechen dem österreichischen Standard (Typ C/F, 230V) – kein Adapter nötig.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🍽️</div><div class="title">Trinkgeld</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>In Restaurants sind ca. 10 % üblich, wenn der Service gestimmt hat – wird meist bar dazugelegt oder beim Bezahlen aufgerundet. Ein Muss ist es nicht, wird aber gerne gesehen.</p>
+      </div>
+    </div>
+
+    <div class="note blue">
+      <b>Hinweis:</b> Diese Übersicht basiert auf Web-Recherche (Stand Juli 2026). Zeiten, Preise und der Betriebsstatus von Zug/Seilbahn bitte kurz vor der Reise nochmal verifizieren – besonders der Zugfahrplan Podgorica–Bar für August 2026 war zum Zeitpunkt der Recherche noch nicht veröffentlicht.
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: MEHR ===== -->
+  <section id="tab-mehr" class="tab-panel">
+    <p class="muted" style="margin:0 0 12px;">Zusätzliche Ideen, Essen &amp; eine grobe Kostenübersicht – kein fixer Programmpunkt, aber dank Mietwagen jederzeit spontan einbaubar.</p>
+
+    <h2 class="section-title">🚗 Weitere Ausflugsideen</h2>
+
+    <div class="acc">
+      <div class="scene"><img loading="lazy" alt="Budva und Sveti Stefan" src="https://commons.wikimedia.org/wiki/Special:FilePath/Budva_-_Sveti_Stefan_2.jpg?width=800" onerror="this.parentElement.style.display='none'"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🏖️</div><div class="title">Budva &amp; Sveti Stefan</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Budva ist die touristische Perle der Küste: eine quirlige, venezianisch geprägte Altstadt direkt am Meer, umgeben von Stränden, Cafés und Restaurants. Rund 20 Minuten weiter südöstlich liegt der kostenlose Aussichtspunkt auf Sveti Stefan – vermutlich das bekannteste Postkartenmotiv Montenegros: eine ehemalige Fischerinsel, heute ein exklusives Aman-Resort.</p>
+        <p>Die Insel selbst ist Hotelgästen vorbehalten, seit 2026 bietet Aman aber wieder geführte Rundgänge für Tagesgäste an (ca. € 25 p.P., mehrmals täglich). Der öffentliche Teil des Strandes davor ist gegen Gebühr nutzbar (Liegen ca. € 20–30 fürs Paar – deutlich teurer als in Bar). Fahrzeit ab Podgorica ca. 1 Stunde.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sveti+Stefan+Montenegro">📍 Maps</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><img loading="lazy" alt="Perast und Our Lady of the Rocks" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kotor_area_Our_Lady_of_the_Rocks.JPG?width=800" onerror="this.parentElement.style.display='none'"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">⛵</div><div class="title">Perast &amp; Our Lady of the Rocks</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Nur 15 Minuten nördlich von Kotor liegt das beschauliche Barockstädtchen Perast mit seinen prächtigen alten Kapitänshäusern. Von der Uferpromenade legen kleine Boote zur künstlich aufgeschütteten Insel „Our Lady of the Rocks" (Gospa od Škrpjela) ab – der Legende nach von Seeleuten über Generationen Stein für Stein aufgeschüttet.</p>
+        <p>Bootsfahrt inkl. Aufenthalt auf der Insel dauert insgesamt ca. 1 Stunde (Boot ca. € 5–10 Rückfahrt, Kirche/Museum ca. € 2 Eintritt). Lässt sich sehr gut mit dem Kotor-Tag kombinieren, da nur 14 km entfernt.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Perast+Montenegro">📍 Maps</a>
+        <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=9hkKK0gGOZE">📺 Video</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><img loading="lazy" alt="Cetinje, alte Königsstadt" src="https://commons.wikimedia.org/wiki/Special:FilePath/King_Nikola's_Palace_in_Cetinje.jpg?width=800" onerror="this.parentElement.style.display='none'"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🏰</div><div class="title">Cetinje – alte Königsstadt</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Cetinje liegt ca. 30–40 Minuten südwestlich von Podgorica in den Bergen und war bis 1918 Hauptstadt Montenegros – noch heute offizieller Amtssitz des Präsidenten. Sehenswert sind der Palast König Nikolas I. (heute Museum), das Kloster Cetinje mit bedeutenden Reliquien sowie die ehemaligen Botschaftsgebäude früherer Großmächte.</p>
+        <p>Deutlich ruhiger und kleinstädtischer als Podgorica – ein guter Kontrasttag. Lässt sich gut mit einem Abstecher nach Rijeka Crnojevića am Skutarisee kombinieren (nur ca. 20 km entfernt).</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Cetinje+Montenegro">📍 Maps</a>
+        <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=3ndz5sOAxxc">📺 Video (Englisch)</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="scene"><img loading="lazy" alt="Đurđevića-Tara-Brücke" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montenegro_Tara_bridge.JPG?width=800" onerror="this.parentElement.style.display='none'"><span class="credit">Foto: Wikimedia Commons</span></div>
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🌉</div><div class="title">Tara-Schlucht &amp; Đurđevića-Brücke</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Für alle mit noch mehr Zeit oder Lust auf einen ambitionierten Tagesausflug: Die Tara-Schlucht gilt als tiefste Schlucht Europas, die historische Đurđevića-Tara-Brücke überspannt sie 172 Meter über dem Fluss. Vor Ort gibt es Ziplines (350–1.050 m Länge) und Rafting-Touren.</p>
+        <p class="muted">Fahrzeit ab Podgorica allerdings ca. 2,5 Stunden je Strecke (~140 km) – für diese Reise eher zu ambitioniert, aber ein Vermerk fürs nächste Mal oder falls doch noch ein ganz freier Tag übrig bleibt.</p>
+        <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Durdevica+Tara+Bridge">📍 Maps</a>
+        <a class="btn-map" target="_blank" href="https://www.youtube.com/watch?v=v3OubqROTHM">📺 Video Rafting (Englisch)</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">🍽️ Essen &amp; Trinken</h2>
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🍽️</div><div class="title">15 Landesspezialitäten</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+      <p class="muted" style="margin:0 0 10px;">Damit man in jedem Lokal weiß, was man bestellen sollte. Montenegrinische Küche ist geprägt von italienischen, türkischen und serbischen Einflüssen; Leitungswasser ist überall bedenkenlos trinkbar.</p>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Ćevapčići" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ćevapčići_in_Montenegro_(Bar).jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Ćevapčići</b><p>Kleine gegrillte Röllchen aus Rind-/Lammhack, serviert mit Fladenbrot (lepinja), rohen Zwiebeln und Ajvar. Der unkomplizierteste Klassiker – bei Kindern fast immer ein Treffer.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Njeguški pršut" src="https://commons.wikimedia.org/wiki/Special:FilePath/Njeguški_pršut.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Njeguški pršut</b><p>Luftgetrockneter, leicht geräucherter Rohschinken aus der Bergregion um Njeguši bei Cetinje. Meist als kalte Vorspeise dünn aufgeschnitten – kräftig-würziger Geschmack, gut zum Teilen.</p></div>
+      </div>
+      <div class="dish">
+        <div class="dish-text"><b>Njeguški sir</b><p>Würziger Hartkäse aus Schafs-/Kuhmilch, in Öl bzw. Asche gereift. Klassisch zusammen mit dem Pršut auf einer gemeinsamen Vorspeisenplatte serviert.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Kačamak" src="https://commons.wikimedia.org/wiki/Special:FilePath/Качамак со кисело млеко и парче сирење.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Kačamak</b><p>Deftiger Mais-/Kartoffelbrei, mit Käse und Sahne bzw. Kajmak vermengt – die Bergküche Montenegros in Reinform, sehr sättigend und günstig.</p></div>
+      </div>
+      <div class="dish">
+        <div class="dish-text"><b>Riblja čorba</b><p>Kräftige Fischsuppe – an der Küste (Bar, Kotor) ein Klassiker als Vorspeise, oft mit Weißwein oder Tomaten zubereitet.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Lignje na žaru" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lignji_na_žaru.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Lignje na žaru</b><p>Auf dem Grill zubereitete Tintenfischtuben, meist nur mit Olivenöl, Knoblauch und Zitrone gewürzt – an der Küste ein Muss.</p></div>
+      </div>
+      <div class="dish">
+        <div class="dish-text"><b>Riba sa gradela</b> (Brancin/Orada)<p>Ganzer Fisch (Wolfsbarsch oder Goldbrasse), einfach auf dem Grill zubereitet und mit Olivenöl beträufelt. Wird meist nach Gewicht abgerechnet – vorher kurz den Preis erfragen.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Kajmak" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kajmak_i_ajvar.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Kajmak</b><p>Eingedickter, leicht säuerlicher Rahm-Aufstrich, der zu fast allem gereicht wird – von Fladenbrot bis Ćevapčići.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Priganice" src="https://commons.wikimedia.org/wiki/Special:FilePath/Priganice_01.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Priganice</b><p>Kleine frittierte Teigbällchen, meist mit Honig, Marmelade oder Käse – klassisches Frühstücks- oder Dessertgebäck, bei Kindern sehr beliebt.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Rakija" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rakija.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Rakija (Loza)</b><p>Der Nationalschnaps, meist aus Trauben (Loza) oder Pflaumen destilliert – wird oft schon vor dem Essen als Aperitif gereicht. Nur für die Erwachsenen.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Burek" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pita_burek.JPG?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Burek</b><p>Herzhafte Blätterteig-Pastete mit Hackfleisch-, Käse- oder Kartoffelfüllung, in Spiralform gebacken. Bei jeder Pekara/Bäckerei erhältlich – schnelles, günstiges Frühstück zum Mitnehmen.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Sarma" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sarma.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Sarma</b><p>Mit Hackfleisch und Reis gefüllte Sauerkrautrouladen, langsam geschmort. Deftiges Winter-/Familiengericht, das aber ganzjährig auf vielen Speisekarten steht.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Palačinke" src="https://commons.wikimedia.org/wiki/Special:FilePath/Palacinke.JPG?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Palačinke</b><p>Dünne Pfannkuchen/Crêpes, meist mit Nutella, Marmelade oder Käse gefüllt – das kindgerechte Dessert schlechthin, fast überall auf der Karte.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Musaka" src="https://commons.wikimedia.org/wiki/Special:FilePath/Musaka_Sofia_2012_PD_1.jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Musaka</b><p>Gratinierter Auflauf aus Kartoffel- oder Auberginenschichten mit Hackfleisch und Béchamel – auf dem Balkan ebenso verbreitet wie in Griechenland, herzhaft und sättigend.</p></div>
+      </div>
+      <div class="dish">
+        <img class="dish-img" loading="lazy" alt="Pasulj" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pasulj (10291319804).jpg?width=200" onerror="this.style.display='none'">
+        <div class="dish-text"><b>Pasulj</b><p>Kräftiger Bohneneintopf, oft mit Räucherfleisch – klassisches, günstiges Bauerngericht, gut als Vorspeise oder kleine Hauptmahlzeit.</p></div>
+      </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">🥤 Getränke</h2>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">☕</div><div class="title">Kaffee</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p class="muted">Kaffee ist am Balkan mehr Ritual als Getränk – eine Einladung zur "kafa" bedeutet vor allem: Zeit und Aufmerksamkeit füreinander, nicht nur ein schnelles Heißgetränk.</p>
+        <div class="dish">
+          <div class="dish-text"><b>Domaća/Turska kafa</b> (Hausgemachter/Türkischer Kaffee)<p>Fein gemahlener, unfiltrierter Kaffee, traditionell in einem kleinen Kupferkännchen (Džezva) aufgekocht und mit Satz serviert – stark und in kleinen Schlucken genossen.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Kapućino</b> (Cappuccino)<p>Wie gewohnt Espresso mit aufgeschäumter Milch – in praktisch jedem Café erhältlich, Bezeichnung und Zubereitung entsprechen weitgehend dem, was man aus Österreich kennt.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Dojč kafa</b> ("Deutscher Kaffee")<p>Lokale Spezialität: ein verlängerter Espresso mit kalter Milch – milder und weniger stark als Espresso oder Domaća kafa. Der Name "Deutsch" bezieht sich also auf diese speziellere Zubereitung, nicht auf den Cappuccino selbst (der heißt ganz normal "Kapućino").</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🧃</div><div class="title">Softdrinks &amp; Säfte</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p class="muted">Landestypische alkoholfreie Getränke, die Julia und Johanna in jedem Supermarkt, Café oder Kiosk probieren können.</p>
+        <div class="dish">
+          <div class="dish-text"><b>Kompot</b><p>Traditionelles, hausgemachtes Fruchtgetränk aus gekochtem Obst (Zwetschken, Äpfel, Kirschen) mit Zucker – wird oft selbstgemacht auf den Tisch gestellt, mild süß und ohne Kohlensäure. In vielen Haushalten und Konobas der Balkanregion üblich.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Cedevita</b><p>Beliebtes Vitamin-Brausepulver zum Anrühren mit Wasser, in Sorten wie Orange, Zitrone oder Grapefruit – bei Kindern in der ganzen Region sehr beliebt, gibt's in jedem Supermarkt.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Pipi</b><p>Süße Orangenlimonade mit Kult-Status am Balkan (Name inspiriert von Pippi Langstrumpf) – fruchtig-süß und ein Klassiker für Kinder, in Cafés und Kiosken erhältlich.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Domaća limunada</b> (Hausgemachte Limonade)<p>Frisch gepresste Zitronenlimonade, oft leicht mit Minze verfeinert – steht in fast jedem Café/Restaurant auf der Karte und ist eine erfrischende, natürliche Alternative an heißen Tagen.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🍷</div><div class="title">Wein</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="dish">
+          <img class="dish-img" loading="lazy" alt="Vranac Rotwein" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vranac_wine_variety_serbia_montenegro_macedonia.JPG?width=200" onerror="this.style.display='none'">
+          <div class="dish-text"><b>Vranac</b> (Rotwein)<p>Die mit Abstand wichtigste Rebsorte Montenegros – kräftiger, dunkler Rotwein mit Aromen von reifen Waldbeeren, seit 1977 als geografische Herkunftsbezeichnung geschützt. In fast jedem Restaurant offen erhältlich.</p></div>
+        </div>
+        <div class="dish">
+          <div class="dish-text"><b>Krstač</b> (Weißwein)<p>Die bekannteste einheimische Weißweinsorte, angebaut vor allem rund um den Skutarisee. Trocken, spritzig, mit Zitrus- und Apfelnoten – guter Begleiter zu Fisch und Meeresfrüchten.</p></div>
+        </div>
+        <div class="dish">
+          <img class="dish-img" loading="lazy" alt="Plantaže Weingut bei Podgorica" src="https://commons.wikimedia.org/wiki/Special:FilePath/Podgorica-Tuzi_plantaze_wineyard_IMG_1318_Cijevna_river.JPG?width=200" onerror="this.style.display='none'">
+          <div class="dish-text"><b>Plantaže 13. jul</b> (Weingut)<p>Größter Weinproduzent Montenegros mit dem größten zusammenhängenden Weinberg Europas (über 2.000 ha), nur wenige Kilometer von Podgorica entfernt. Verkostungen/Kellerbesichtigungen sind möglich – als spontaner Zwischenstopp mit dem Mietwagen gut machbar.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Plantaze+13+jul+Podgorica">📍 Maps</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🍺</div><div class="title">Bier</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="dish">
+          <img class="dish-img" loading="lazy" alt="Nikšićko Bier" src="https://commons.wikimedia.org/wiki/Special:FilePath/Nikšicko_pivo_beer.jpg?width=200" onerror="this.style.display='none'">
+          <div class="dish-text"><b>Nikšićko</b><p>Das mit Abstand populärste Bier des Landes, seit 1896 in der Brauerei Trebjesa in Nikšić gebraut – helles Lager, in jedem Supermarkt und an jeder Bar erhältlich.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🥃</div><div class="title">Schnäpse</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="dish">
+          <img class="dish-img" loading="lazy" alt="Rakija" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rakija.jpg?width=200" onerror="this.style.display='none'">
+          <div class="dish-text"><b>Rakija (Loza)</b><p>Der Nationalschnaps, meist aus Trauben (Loza) oder Pflaumen destilliert – wird oft schon vor dem Essen als Aperitif gereicht. Nur für die Erwachsenen.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">🍴 Restaurant-Empfehlungen Podgorica</h2>
+    <p class="muted" style="margin:0 0 10px;">Preisniveau statt genauer Beträge: 💰 günstig · 💰💰 mittel · 💰💰💰 gehoben.</p>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🚶</div><div class="title">In Gehweite (Zabjelo) – v.a. Frühstück</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="rest">
+          <div class="rname">Bistro Dijagonala <span class="muted" title="günstig">💰</span></div>
+          <div class="rmeta">⭐ 3,8 (174 Bew.) · direkt in der Ilije Plamenca · geöffnet ab 8:00 Uhr</div>
+          <p>Gemütliches Bistro mit Pizza-Schwerpunkt direkt in der Straße der Unterkunft – öffnet früh, daher auch für ein einfaches Frühstück/Kaffee gut geeignet. Freundlicher Service.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Bistro+Dijagonala+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">GoodFellas Zabjelo <span class="muted" title="günstig">💰</span></div>
+          <div class="rmeta">⭐ 3,7 (89 Bew.) · BB Ilije Plamenca · bis Mitternacht geöffnet</div>
+          <p>Pizzeria &amp; Grill mit Burgern, Sandwiches, Salaten und Frühstücksoptionen – ebenfalls in derselben Straße. Praktisch für einen unkomplizierten Lunch oder späten Snack mit Kindern.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=GoodFellas+Zabjelo+Ilije+Plamenca+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Burekdžinica Zabjelo <span class="muted" title="sehr günstig">💰</span></div>
+          <div class="rmeta">Lokale Institution seit vier Generationen · nahe Stadtstadion Zabjela</div>
+          <p>Der beste Burek der Stadt laut vielen Einheimischen – ideal für ein schnelles, sehr günstiges Frühstück zum Mitnehmen, auf dem Weg in die Stadt.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Burekdzinica+Zabjelo+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Sicilia (Filialkette) <span class="muted" title="günstig">💰</span></div>
+          <div class="rmeta">Mehrere Standorte in Podgorica</div>
+          <p>Italienisch geprägte Kette mit Frühstücksmenü (u.a. Przenice – frittierte Teigbällchen mit Honig/Käse) – je nach nächstgelegener Filiale eine weitere Frühstücksoption in Wohnnähe.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sicilia+Podgorica">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🚗</div><div class="title">Podgorica allgemein – mit dem Auto</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <div class="rest">
+          <div class="rname">Konoba "Lanterna" <span class="muted" title="mittel">💰💰</span></div>
+          <div class="rmeta">⭐ 4,6 (2.275 Bew.) · TripAdvisor #4 von 223</div>
+          <p>Authentische montenegrinische Küche (Kačamak, Ćevapčići) in gemütlicher Atmosphäre, sehr gutes Preis-Leistungs-Verhältnis. Am Wochenende reservieren, ist bei Einheimischen sehr beliebt.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Konoba+Lanterna+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Lupo di Mare <span class="muted" title="mittel bis gehoben">💰💰</span></div>
+          <div class="rmeta">⭐ 4,5–4,6 (446 Bew.)</div>
+          <p>Kleines Fischrestaurant im Zentrum, täglich frischer Fisch von lokalen Fischern. Bekannt für Thunfisch-Tatar und Fischsuppe – für den "besonderen" Restauranttag.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Lupo+di+Mare+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Restoran Maša <span class="muted" title="mittel bis gehoben">💰💰</span></div>
+          <div class="rmeta">⭐ 4,6 (556 Bew.) · seit 26 Jahren familiengeführt</div>
+          <p>Mediterran-italienisch geprägt, bekannt für Fisch/Meeresfrüchte-Pasta und hausgemachte Kuchen/Eis zum Dessert – gut für Familien, freundliches Personal.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Restoran+Masa+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">The Living Room Lounge &amp; Dining <span class="muted" title="gehoben">💰💰💰</span></div>
+          <div class="rmeta">⭐ 4,7 · TripAdvisor #3 von Podgorica</div>
+          <p>Gehobene Option, tagsüber auch mit Frühstück/Brunch (ca. €15–20 p.P.), abends eher Fine Dining (€50+ p.P.) – für einen besonderen Abend ohne Kinder.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=The+Living+Room+Lounge+Dining+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Hemera Restoran <span class="muted" title="gehoben">💰💰💰</span></div>
+          <div class="rmeta">⭐ 4,4</div>
+          <p>Elegantes Restaurant, gilt manchen Gästen als eines der teuersten der Stadt – dafür gehobene Küche und Ambiente für einen Anlass-Abend.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Hemera+Restoran+Podgorica">📍 Maps</a>
+        </div>
+        <div class="rest">
+          <div class="rname">Nonna <span class="muted" title="günstig bis mittel">💰💰</span></div>
+          <div class="rmeta">Italienisch geprägtes Café/Bäckerei im Zentrum</div>
+          <p>Modernes, gemütliches Café mit gutem Cappuccino, Croissants und Pizza – praktischer Stopp zum Auftanken zwischen Sightseeing und Shopping in der Innenstadt.</p>
+          <a class="btn-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Nonna+Podgorica">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">🌦️ Live-Wetter Podgorica</h2>
+    <div class="card">
+      <p class="muted" style="margin-top:0;" id="liveWeatherStatus">Lade aktuelle Wetterdaten…</p>
+      <div id="liveWeatherCurrent"></div>
+      <div id="liveWeatherForecast"></div>
+      <p class="muted" style="margin-bottom:0;">Daten live von <a href="https://open-meteo.com/" target="_blank">Open-Meteo.com</a> – aktualisiert bei jedem Öffnen dieser Seite (Internetverbindung nötig).</p>
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: GESCHICHTE ===== -->
+  <section id="tab-geschichte" class="tab-panel">
+    <p class="muted" style="margin:0 0 12px;">Für Erwachsene – ausführlicher Hintergrund zur Geschichte Montenegros, gegliedert in Epochen. Gut geeignet zum Nachlesen vor Ort, z.B. am Pool oder abends auf der Terrasse. Tippen zum Aufklappen.</p>
+
+    <div class="note blue" style="margin-bottom:12px;">
+      Montenegros Geschichte ist eng mit der serbischen verflochten, und die nationale Identität des Landes wird bis heute unterschiedlich gedeutet – ein Teil der Bevölkerung versteht sich als eigenständig montenegrinisch, ein anderer Teil als serbisch. Diese Übersicht stellt die historischen Fakten möglichst neutral dar, ohne diesen bis heute politisch aufgeladenen Identitätsstreit zu bewerten.
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🏺</div><div class="title">1. Antike: Illyrer, Römer &amp; Byzanz (bis ca. 900)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Das Gebiet des heutigen Montenegro war seit der Eisenzeit von illyrischen Stämmen besiedelt, unter ihnen die Labeaten (mit Zentrum am Skutarisee, dem heutigen Ausflugsziel eurer Bootstour) und die Ardiäer. Diese illyrischen Kleinreiche gerieten in den Illyrisch-Römischen Kriegen des 3./2. Jahrhunderts v. Chr. zunehmend unter römischen Druck und wurden schließlich vollständig ins Römische Reich eingegliedert.</p>
+        <p>Die wichtigste römische Stadt auf montenegrinischem Boden war Doclea (Duklja), nur rund 4 km nordwestlich des heutigen Stadtzentrums von Podgorica gelegen – die Ruinen sind bis heute besichtigbar. Auch die heutigen Küstenstädte Bar und Ulcinj gehen auf illyrisch-römische Gründungen zurück. Bei der Reichsteilung von 395 n. Chr. fiel die Region zunächst an das Weströmische Reich, ab 535 n. Chr. gehörte sie dann für rund 500 Jahre zum Byzantinischen (Oströmischen) Reich.</p>
+        <p>Ab dem 7. Jahrhundert wanderten im Zuge der großen slawischen Völkerwanderung, oft im Gefolge der Awaren, slawische Stämme in die Region ein und verdrängten allmählich die romanisierte Bevölkerung. Der Name „Duklja", der später der ganzen Region ihren ersten Namen gab, geht direkt auf das römische Doclea zurück – eine der wenigen sprachlichen Brücken zwischen Antike und Mittelalter, die sich bis heute in der Landschaft ablesen lässt.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">👑</div><div class="title">2. Frühmittelalter: Das Fürstentum Duklja (ca. 900–1186)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Im 9. Jahrhundert bildeten sich auf dem Gebiet des heutigen Montenegro und seiner Umgebung mehrere slawische Fürstentümer heraus: Duklja im Süden (etwa das heutige Kerngebiet Montenegros), Travunia im Westen und Raszien (Rascia) im Norden. Diese standen zunächst unter mehr oder weniger loser byzantinischer Oberhoheit.</p>
+        <p>1042 führte der duklische Fürst Stefan Vojislav eine erfolgreiche Revolte gegen Byzanz an und begründete damit die Vojislavljević-Dynastie sowie de facto die Unabhängigkeit Dukljas. Unter seinem Sohn Mihailo (reg. 1046–1081) und seinem Enkel Bodin (reg. 1081–1101) erlebte Duklja seine größte Machtentfaltung – Mihailo ließ sich sogar vom Papst als König anerkennen, was Duklja zu einem der ersten anerkannten slawischen Königreiche des Balkans machte.</p>
+        <p>Nach Bodins Tod zerfiel die Zentralmacht in Erbstreitigkeiten, und das Machtzentrum der südslawischen Welt verschob sich zunehmend ins benachbarte Raszien, dem Kernland des späteren mittelalterlichen Serbien. Duklja (das ab dieser Zeit zunehmend „Zeta" genannt wurde, nach dem Fluss Zeta bei Podgorica) verlor an eigenständiger Bedeutung und geriet in die Einflusssphäre der aufstrebenden serbischen Nemanjiden-Dynastie.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">⚔️</div><div class="title">3. Spätmittelalter: Zeta unter Nemanjiden, Balšić &amp; Crnojević (1186–1496)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Ab ca. 1186 wurde Zeta (das frühere Duklja) Teil des mittelalterlichen serbischen Staates unter der Nemanjiden-Dynastie und meist als Kronland (Apanage) von Mitgliedern der serbischen Königsfamilie verwaltet – oft residierten dort die jeweiligen Thronfolger, bevor sie den serbischen Königsthron bestiegen. Diese enge Verbindung zum serbischen Königreich, das im 14. Jahrhundert unter Stefan Dušan zu einem der mächtigsten Reiche Südosteuropas aufstieg, prägt bis heute die historische Verflechtung zwischen serbischer und montenegrinischer Geschichte.</p>
+        <p>Nach dem Zerfall des serbischen Reiches in der zweiten Hälfte des 14. Jahrhunderts (u.a. nach der Schlacht auf dem Amselfeld 1389 gegen die Osmanen) übernahm ab ca. 1356 das Adelsgeschlecht der Balšić die Herrschaft über Zeta als eigenständige Fürsten. Diese Dynastie regierte bis 1421, als mit Balša III. ihr letzter Vertreter starb und Zeta kurzzeitig dem serbischen Despotat beitrat.</p>
+        <p>Von ca. 1451 bis 1496 herrschte schließlich das Haus Crnojević über Zeta – vermutlich in dieser Zeit entstand auch der bis heute gebräuchliche Name „Crna Gora" („Schwarzer Berg", daher die deutsche/italienische Bezeichnung „Montenegro") für das bergige Kernland um den Berg Lovćen. Ivan Crnojević verlegte den Herrschaftssitz 1482 nach Cetinje und ließ dort das Kloster Cetinje errichten – der Beginn von Cetinjes jahrhundertelanger Rolle als geistliches und politisches Zentrum des Landes, die bis in die Neuzeit anhielt.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🏔️</div><div class="title">4. Osmanische Herrschaft &amp; Fürstbistum (1496–1852)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>1496 wurde Zeta formell dem Osmanischen Reich einverleibt. Anders als die fruchtbaren Ebenen der Region blieb das unwegsame Bergland um Cetinje jedoch faktisch nie vollständig unter osmanischer Kontrolle – die zersplitterten Stammesgesellschaften der Bergmontenegriner leisteten über Jahrhunderte hinweg beharrlichen Widerstand. Auch als Cetinje 1692 formell an die Osmanen fiel, blieb es zugleich Zentrum des Widerstands und Sitz eines eigenen „Vilayet Montenegro" mit weitgehender faktischer Autonomie.</p>
+        <p>Ab 1697 etablierte sich mit der Familie Petrović-Njegoš eine neue, prägende Dynastie: Ihre Oberhäupter waren zugleich weltliche und geistliche Führer des Landes als „Vladika" (Fürstbischöfe der serbisch-orthodoxen Eparchie Cetinje) – eine ungewöhnliche Kombination aus Kirchenamt und Staatsführung, die dem jungen Gemeinwesen über 150 Jahre lang Stabilität und eine einigende Symbolfigur gab, in einer Gesellschaft, die ansonsten stark in einzelne Bergstämme zersplittert war.</p>
+        <p>Die montenegrinischen Stämme führten in dieser Zeit immer wieder offene Feldschlachten und Guerillakämpfe gegen osmanische Truppen. Besonders bekannt ist die Schlacht bei Martinići 1796, in der montenegrinische Kämpfer unter Bischof Petar I. einer zahlenmäßig weit überlegenen osmanischen Streitmacht eine schwere Niederlage zufügten und damit Montenegros faktische Unabhängigkeit weiter festigten. Formal blieb das Land zwar bis 1878 unter osmanischer Oberhoheit, wurde aber realpolitisch nie wieder vollständig erobert – ein Umstand, auf den sich das montenegrinische Selbstbild bis heute viel einbildet.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">✒️</div><div class="title">5. Exkurs: Petar II. Petrović-Njegoš, der Dichterfürst</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Kaum eine historische Figur ist für die montenegrinische Identität so prägend wie Petar II. Petrović-Njegoš (1813–1851), der von 1830 bis zu seinem frühen Tod als Fürstbischof über Montenegro herrschte. Er modernisierte in dieser Zeit die staatlichen Strukturen des Landes, gründete die erste Druckerei und ein Schulwesen und legte damit den administrativen Grundstein für einen Staat im moderneren Sinn.</p>
+        <p>Gleichzeitig gilt er als einer der bedeutendsten Dichter der gesamten südslawischen Literatur. Sein Versepos „Der Bergkranz" (Gorski vijenac, 1847) schildert in kraftvoller, oft heroisch überhöhter Sprache den Freiheitskampf der Bergmontenegriner gegen die Osmanen und gehört bis heute zur Pflichtlektüre in Montenegro, Serbien und weiten Teilen des Balkans.</p>
+        <p>Njegoš ließ sich als Grabstätte einen Mausoleumsbau auf dem Gipfel des Lovćen errichten, jenes Berges, der dem Land seinen Namen gab – das heutige, 1974 fertiggestellte Njegoš-Mausoleum auf dem Lovćen ist ein vielbesuchter Aussichtspunkt mit grandiosem Panoramablick und liegt nur eine kurze Fahrt von Kotor und Cetinje entfernt, falls beim Ausflug in die Bucht von Kotor noch Zeit und Lust auf einen weiteren Stopp bleibt.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">👑</div><div class="title">6. Fürstentum &amp; Königreich Montenegro (1852–1918)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>1852 wandelte Njegošs Nachfolger Danilo I. das geistliche Fürstbistum in ein weltliches, erbliches Fürstentum um – die Petrović-Njegoš-Herrscher waren fortan Fürsten statt Bischöfe. Unter Fürst (später König) Nikola I., der von 1860 bis 1918 regierte, erlebte Montenegro seine bis dahin größte diplomatische und territoriale Blütezeit.</p>
+        <p>Auf dem Berliner Kongress 1878, der die Balkankrise nach dem Russisch-Osmanischen Krieg neu ordnete, wurde Montenegros Unabhängigkeit von den europäischen Großmächten offiziell anerkannt – zugleich erhielt das Land mit der Hafenstadt Bar erstmals einen eigenen Zugang zum Meer. In den folgenden Jahrzehnten gelang es Montenegro, dem zunehmend geschwächten Osmanischen Reich weitere Gebiete abzuringen und sein Staatsgebiet bis zu den Balkankriegen 1912/13 nahezu zu verdoppeln.</p>
+        <p>1910 krönte sich Nikola I. selbst zum König, Montenegro wurde damit offiziell zum Königreich. Nikola I. verheiratete geschickt mehrere seiner Töchter in europäische Königs- und Fürstenhäuser (u.a. nach Italien und Russland) und verschaffte dem kleinen Bergstaat dadurch international beachtliches diplomatisches Gewicht – er wurde nicht ohne Ironie auch „Schwiegervater Europas" genannt.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">💣</div><div class="title">7. Erster Weltkrieg &amp; das Ende der Unabhängigkeit (1914–1922)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Montenegro trat 1914 an der Seite Serbiens und der Entente in den Ersten Weltkrieg ein. Nach anfänglichen Erfolgen wurde das Land 1916 von österreichisch-ungarischen Truppen besetzt, König Nikola I. musste ins Exil nach Frankreich fliehen. Erst mit dem Kriegsende 1918 und dem Zusammenbruch Österreich-Ungarns endete die Besatzung.</p>
+        <p>Am 24.–29. November 1918 tagte in Podgorica die sogenannte „Podgorica-Versammlung": Bewusst nicht in der königstreuen Hauptstadt Cetinje, sondern in Podgorica abgehalten, beschloss die Versammlung mit rund 70 % der anwesenden Delegierten die bedingungslose Vereinigung Montenegros mit Serbien und den Anschluss an das neu gegründete Königreich der Serben, Kroaten und Slowenen (das spätere Jugoslawien) – gegen den erklärten Willen des im Exil befindlichen Königs Nikola I., dessen Dynastie damit ihren Thron verlor.</p>
+        <p>Diese Entscheidung spaltete die montenegrinische Bevölkerung tief: Die unionsfreundlichen „Weißen" (Bjelaši) standen den unionsfeindlichen „Grünen" (Zelenaši) gegenüber, die für den Erhalt der Unabhängigkeit und der Petrović-Dynastie kämpften. Anfang Januar 1919 brach der sogenannte „Weihnachtsaufstand" der Grünen aus, der von serbischen/jugoslawischen Truppen niedergeschlagen wurde – vereinzelter Widerstand der Grünen-Bewegung hielt sich in den Bergen noch bis in die frühen 1920er Jahre. Montenegro verlor damit nach 1878 zum zweiten Mal in seiner Geschichte seine Eigenstaatlichkeit, diesmal für fast 90 Jahre.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🇾🇺</div><div class="title">8. Zwischenkriegszeit im Königreich Jugoslawien (1918–1941)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Als Teil des Königreichs der Serben, Kroaten und Slowenen (ab 1929: Königreich Jugoslawien) verlor Montenegro seine eigenständige Verwaltung fast vollständig; das Gebiet wurde in wechselnden Verwaltungseinheiten aufgeteilt, zuletzt in der „Zeta-Banschaft" (Zetska banovina). Cetinje verlor seinen Status als Hauptstadt endgültig an Belgrad.</p>
+        <p>Wirtschaftlich blieb die Zwischenkriegszeit für die montenegrinischen Bergregionen von Armut und Auswanderung geprägt – viele Montenegriner wanderten in dieser Zeit nach Belgrad, in andere Teile Jugoslawiens oder auch nach Übersee (insbesondere in die USA) aus. Der Groll der ehemaligen „Grünen"-Bewegung über den Verlust der Eigenstaatlichkeit blieb in Teilen der Bevölkerung latent bestehen und sollte bei Ausbruch des Zweiten Weltkriegs erneut politische Bedeutung erlangen.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🎖️</div><div class="title">9. Zweiter Weltkrieg (1941–1945)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Nach der raschen militärischen Zerschlagung Jugoslawiens durch die Achsenmächte im April 1941 wurde Montenegro von italienischen Truppen besetzt. Italien proklamierte einen nominell „unabhängigen" montenegrinischen Satellitenstaat und versuchte sogar, mit einem Enkel Nikolas I. eine mit Rom verbündete Monarchie wiederzubeleben – ein direkter Anknüpfungspunkt an die alte „Grünen"-Bewegung und deren Wunsch nach Eigenstaatlichkeit, den die Besatzer gezielt für ihre Zwecke instrumentalisierten.</p>
+        <p>Im Juli 1941 kam es zu einem spontanen, breiten Volksaufstand gegen die italienische Besatzung, der die Italiener kurzzeitig fast das ganze Land kostete, im August 1941 aber mit Verstärkung zehntausender zusätzlicher Truppen brutal niedergeschlagen wurde. Bereits am 13. Juli 1941 hatten kommunistische Partisanen unter Führung der KP Jugoslawiens in den montenegrinischen Bergen ihren organisierten Widerstandskampf aufgenommen – Montenegro wurde in der Folge zu einer der wichtigsten Rückzugs- und Operationsbasen von Titos Partisanenbewegung.</p>
+        <p>Nach der italienischen Kapitulation im September 1943 übernahmen deutsche Truppen die Kontrolle über die Region, bis Podgorica im Dezember 1944 von den Partisanen befreit wurde. Die Kämpfe und Vergeltungsaktionen aller beteiligten Seiten (italienische, deutsche, tschetnik-royalistische und Partisanen-Kräfte) forderten in Montenegro proportional zur Bevölkerung einige der höchsten Opferzahlen im gesamten besetzten Jugoslawien.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">☭</div><div class="title">10. Titoistisches Jugoslawien &amp; Titograd (1945–1992)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Nach Kriegsende wurde Montenegro als eine von sechs gleichberechtigten Teilrepubliken in die von Josip Broz Tito geführte sozialistische Föderative Volksrepublik Jugoslawien (später: Sozialistische Föderative Republik Jugoslawien) eingegliedert – erstmals seit 1918 wieder mit eigener, wenn auch stark eingeschränkter, Teilrepublik-Verwaltung. 1946 wurde die Hauptstadt Podgorica zu Ehren Titos in „Titograd" umbenannt, ein Name, den die Stadt bis 1992 trug.</p>
+        <p>Die Tito-Ära brachte Montenegro spürbare Modernisierung: Industrialisierung, den Ausbau von Bildung und Infrastruktur sowie eine im jugoslawischen Vergleich überdurchschnittliche Förderung, da Montenegro als eine der ärmeren Teilrepubliken galt. Gleichzeitig wurde – wie überall im titoistischen Jugoslawien – jede Betonung nationaler oder religiöser Identität, sei sie montenegrinisch oder serbisch geprägt, staatlich unterdrückt zugunsten der übergeordneten „jugoslawischen" Bruderschaft und Einheit.</p>
+        <p>Podgorica selbst wurde nach den schweren Zerstörungen des Zweiten Weltkriegs (die Stadt war Ziel intensiver alliierter Bombardierungen, da dort deutsche Nachschublinien verliefen) in dieser Zeit fast vollständig im nüchternen, funktionalen Stil sozialistischer Nachkriegsarchitektur neu errichtet – der Hauptgrund, warum die heutige Stadt architektonisch so wenig historisch wirkt im Vergleich zu Küstenstädten wie Kotor oder Budva.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">⚡</div><div class="title">11. Jugoslawienkriege &amp; Staatenunion mit Serbien (1992–2006)</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Als ab 1991 die anderen jugoslawischen Teilrepubliken (Slowenien, Kroatien, Bosnien-Herzegowina, Nordmazedonien) ihre Unabhängigkeit erklärten und die blutigen Jugoslawienkriege ausbrachen, entschied sich Montenegro zunächst, an der Seite Serbiens zu bleiben: Im April 1992 gründeten beide Republiken gemeinsam die „Bundesrepublik Jugoslawien". Montenegrinische Reservisten waren in den frühen 1990er Jahren u.a. an der Belagerung von Dubrovnik beteiligt, was international scharf kritisiert wurde.</p>
+        <p>1997 vollzog der damalige montenegrinische Ministerpräsident (später Präsident) Milo Đukanović einen folgenreichen politischen Bruch mit dem serbischen Machthaber Slobodan Milošević und distanzierte sich zunehmend von dessen nationalistischer Politik. Dieser Kurswechsel bewahrte Montenegro 1999 weitgehend vor den schweren NATO-Bombardements, die Serbien während des Kosovo-Kriegs trafen, auch wenn einzelne montenegrinische Ziele ebenfalls getroffen wurden.</p>
+        <p>Auf Druck der Europäischen Union, die eine weitere Zersplitterung des Westbalkans verhindern wollte, verzichtete Montenegro zunächst auf eine sofortige Unabhängigkeit und vereinbarte 2003 mit Serbien die lockere Staatengemeinschaft „Serbien und Montenegro" – ein politischer Kompromiss, der sich als Übergangslösung erwies und nur bis 2006 Bestand hatte.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="emoji">🇲🇪</div><div class="title">12. Unabhängigkeit 2006 bis heute</div><div class="chevron">⌄</div>
+      </div>
+      <div class="acc-body">
+        <p>Am 21. Mai 2006 stimmten die Montenegriner in einem international überwachten Referendum mit 55,5 % knapp über der von der EU geforderten 55-%-Hürde für die Unabhängigkeit von Serbien. Am 3. Juni 2006 erklärte das Parlament in Podgorica offiziell die Unabhängigkeit der Republik Montenegro, am 28. Juni 2006 wurde das Land als 192. Mitglied in die Vereinten Nationen aufgenommen – nach 1878/1918 und 1918–2006 erlangte Montenegro damit zum dritten Mal in seiner Geschichte volle Eigenstaatlichkeit, diesmal auf friedlichem, demokratischem Weg.</p>
+        <p>Im Juni 2017 trat Montenegro trotz erheblichen innenpolitischen und russischen Widerstands der NATO bei – ein Schritt, der die außenpolitische Westorientierung des Landes seit 2006 unterstrich. Bereits 2008 hatte Montenegro den EU-Beitrittsantrag gestellt, seit Juni 2012 laufen die offiziellen Beitrittsverhandlungen.</p>
+        <p>Stand Sommer 2026 hat Montenegro von 33 eröffneten Verhandlungskapiteln 16 vorläufig abgeschlossen und gilt unter den aktuellen Beitrittskandidaten als das mit Abstand am weitesten fortgeschrittene Land – die EU-Kommission arbeitet bereits an den rechtlichen Details eines künftigen Beitrittsvertrags. Ministerpräsident Milojko Spajić hofft auf einen EU-Beitritt bis 2028, realistischer gelten Beobachter zufolge eher 2028/2029, da nach Verhandlungsabschluss noch alle 27 EU-Mitgliedsstaaten den Vertrag ratifizieren müssen. Die Reise 2026 fällt damit in eine Zeit, in der Montenegro dem historischen Ziel einer engen Anbindung an Europa so nahe ist wie nie zuvor seit 2006.</p>
+        <div class="note" style="margin-top:10px;">Diese Geschichtsübersicht wurde im Juli 2026 recherchiert und mit mehreren Quellen abgeglichen (u.a. Wikipedia, bpb.de, Konrad-Adenauer-Stiftung, Euronews). Wie bei jeder komprimierten Geschichtsdarstellung empfiehlt sich bei Interesse eine vertiefende Zweitquelle vor Ort – z.B. im Njegoš-Mausoleum auf dem Lovćen oder im Königspalast in Cetinje.</div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<nav class="tabbar">
+  <button class="active" onclick="showTab('uebersicht',this)"><span class="ic">🏠</span>Übersicht</button>
+  <button onclick="showTab('tagesplan',this)"><span class="ic">📅</span>Tagesplan</button>
+  <button onclick="showTab('highlights',this)"><span class="ic">⭐</span>Highlights</button>
+  <button onclick="showTab('praktisch',this)"><span class="ic">ℹ️</span>Praktisch</button>
+  <button onclick="showTab('mehr',this)"><span class="ic">➕</span>Mehr</button>
+  <button onclick="showTab('geschichte',this)"><span class="ic">📜</span>Geschichte</button>
+</nav>
+
+<script>
+function openBookingLink(e){
+  e.preventDefault();
+  var pin = prompt('PIN eingeben, um die Booking.com-Buchung zu öffnen:');
+  if(pin === null) return false;
+  if(pin === '9890'){
+    window.open('https://www.booking.com/hotel/me/zoya-apartment.de.html?aid=304142&checkin=2026-08-18&checkout=2026-08-25&group_adults=1&group_children=2&req_age=12&req_age=8&no_rooms=1&room1=A%2C12%2C8', '_blank');
+  } else {
+    alert('Falsche PIN.');
+  }
+  return false;
+}
+function showTab(name, btn){
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('nav.tabbar button').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleDay(head){
+  var day = head.parentElement;
+  var body = day.querySelector('.day-body');
+  var wasOpen = day.classList.contains('open');
+  document.querySelectorAll('.day.open').forEach(function(d){
+    d.classList.remove('open');
+    d.querySelector('.day-body').style.maxHeight = null;
+  });
+  if(!wasOpen){
+    day.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+function toggleAcc(head){
+  var acc = head.parentElement;
+  var body = acc.querySelector('.acc-body');
+  var wasOpen = acc.classList.contains('open');
+  if(wasOpen){
+    acc.classList.remove('open');
+    body.style.maxHeight = null;
+  } else {
+    acc.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+function updateCountdown(){
+  var target = new Date('2026-08-18T00:00:00');
+  var now = new Date();
+  var diff = target - now;
+  if(diff < 0) diff = 0;
+  var d = Math.floor(diff / (1000*60*60*24));
+  var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  var s = Math.floor((diff % (1000*60)) / 1000);
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  document.getElementById('cdDays').textContent = d;
+  document.getElementById('cdHours').textContent = pad(h);
+  document.getElementById('cdMinutes').textContent = pad(m);
+  document.getElementById('cdSeconds').textContent = pad(s);
+}
+window.addEventListener('load', function(){
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  loadLiveWeather();
+});
+
+function weatherIcon(code){
+  if(code===0) return '☀️';
+  if(code===1||code===2) return '🌤️';
+  if(code===3) return '☁️';
+  if(code===45||code===48) return '🌫️';
+  if(code>=51&&code<=57) return '🌦️';
+  if(code>=61&&code<=67) return '🌧️';
+  if(code>=71&&code<=77) return '🌨️';
+  if(code>=80&&code<=82) return '🌧️';
+  if(code>=85&&code<=86) return '🌨️';
+  if(code>=95) return '⛈️';
+  return '🌡️';
+}
+
+function loadLiveWeather(){
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=42.4304&longitude=19.2594&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=Europe%2FPodgorica&forecast_days=6';
+  fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var statusEl = document.getElementById('liveWeatherStatus');
+    var curEl = document.getElementById('liveWeatherCurrent');
+    var foreEl = document.getElementById('liveWeatherForecast');
+    if(!data || !data.current || !data.daily){
+      if(statusEl) statusEl.textContent = 'Wetterdaten aktuell nicht verfügbar.';
+      return;
+    }
+    if(statusEl) statusEl.remove();
+    curEl.innerHTML = '<div class="row"><span class="label">Jetzt in Podgorica</span><span class="val">'+weatherIcon(data.current.weather_code)+' '+Math.round(data.current.temperature_2m)+' °C</span></div>'+
+      '<div class="row"><span class="label">Wind</span><span class="val">'+Math.round(data.current.wind_speed_10m)+' km/h</span></div>';
+    var dayNames = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+    var html = '';
+    for(var i=0;i<data.daily.time.length;i++){
+      var d = new Date(data.daily.time[i]+'T00:00:00');
+      var label = dayNames[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.';
+      html += '<div class="row"><span class="label">'+label+'</span><span class="val">'+weatherIcon(data.daily.weather_code[i])+' '+Math.round(data.daily.temperature_2m_min[i])+'–'+Math.round(data.daily.temperature_2m_max[i])+' °C</span></div>';
+    }
+    foreEl.innerHTML = html;
+  }).catch(function(){
+    var statusEl = document.getElementById('liveWeatherStatus');
+    if(statusEl) statusEl.textContent = 'Wetterdaten aktuell nicht abrufbar (offline oder Netzwerkfehler).';
+  });
+}
+</script>
+
+</body>
+</html>
