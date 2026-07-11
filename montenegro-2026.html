@@ -531,10 +531,10 @@
 
     <div class="card">
       <h3><span class="emoji">🏠</span> Unterkunft</h3>
-      <p><b>Ferienwohnung "Zoya"</b><br>Ilije Plamenca, 81000 Podgorica, Montenegro</p>
+      <p><b>Ferienwohnung "Zoya"</b></p>
       <p class="muted">Vom Flughafen (TGD) ca. 12 km / 15–20 Min. Fahrzeit. Zentrumsnahe Lage in Podgorica – Altstadt, Einkaufszentren und die Ausfallstraßen Richtung Skutarisee, Bar und Kotor sind von dort aus in wenigen Autominuten erreichbar.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <a class="btn-map" target="_blank" href="https://www.google.com/maps/place/Zoya+Apartment+Podgorica/@42.4287054,19.2422254,756m/data=!3m2!1e3!4b1!4m6!3m5!1s0x134deb853d9bd2b3:0x2f52ddde1d854bcb!8m2!3d42.4287015!4d19.2448057!16s%2Fg%2F11yj7hp3l1?entry=ttu">📍 In Google Maps öffnen</a>
+        <a class="btn-map" href="#" onclick="return openMapsLink(event)">🔒 In Google Maps öffnen</a>
         <a class="btn-map" style="background:#003580;" href="#" onclick="return openBookingLink(event)">🔒 Booking.com Buchung</a>
       </div>
     </div>
@@ -1399,7 +1399,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 20:34 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 20:39 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1410,6 +1410,17 @@ function openInfoModal(){
 }
 function closeInfoModal(){
   document.getElementById('infoModal').classList.remove('open');
+}
+function openMapsLink(e){
+  e.preventDefault();
+  var pin = prompt('PIN eingeben, um die Adresse in Google Maps zu öffnen:');
+  if(pin === null) return false;
+  if(pin === '9890'){
+    window.open('https://www.google.com/maps/place/Zoya+Apartment+Podgorica/@42.4287054,19.2422254,756m/data=!3m2!1e3!4b1!4m6!3m5!1s0x134deb853d9bd2b3:0x2f52ddde1d854bcb!8m2!3d42.4287015!4d19.2448057!16s%2Fg%2F11yj7hp3l1?entry=ttu', '_blank');
+  } else {
+    alert('Falsche PIN.');
+  }
+  return false;
 }
 function openBookingLink(e){
   e.preventDefault();
