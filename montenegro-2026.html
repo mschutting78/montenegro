@@ -1540,10 +1540,22 @@
     </div>
 
     <div class="fun-sub-panel" id="fun-galgenmaennchen">
-      <p class="muted" style="margin:0 0 12px;">Galgenmännchen – errate das Wort Buchstabe für Buchstabe. Funktioniert auch ohne Internetverbindung.</p>
+      <p class="muted" style="margin:0 0 12px;">Galgenmännchen – errate Wort oder Redewendung Buchstabe für Buchstabe. Funktioniert auch ohne Internetverbindung.</p>
       <div class="card" style="text-align:center;">
-        <div id="hangmanFace" style="font-size:2.4rem;margin-bottom:8px;">🙂</div>
-        <div id="hangmanWord" style="font-size:1.5rem;font-weight:700;letter-spacing:4px;font-family:monospace;margin-bottom:6px;"></div>
+        <svg id="hangmanSvg" viewBox="0 0 200 200" style="width:150px;height:150px;margin:0 auto 8px;display:block;">
+          <line x1="15" y1="185" x2="120" y2="185" stroke="#22303f" stroke-width="5" stroke-linecap="round"/>
+          <line x1="45" y1="185" x2="45" y2="15" stroke="#22303f" stroke-width="5" stroke-linecap="round"/>
+          <line x1="45" y1="15" x2="135" y2="15" stroke="#22303f" stroke-width="5" stroke-linecap="round"/>
+          <line x1="45" y1="35" x2="70" y2="15" stroke="#22303f" stroke-width="4" stroke-linecap="round"/>
+          <line x1="135" y1="15" x2="135" y2="35" stroke="#22303f" stroke-width="4" stroke-linecap="round"/>
+          <circle id="hm-head" cx="135" cy="53" r="18" fill="none" stroke="var(--terracotta)" stroke-width="4" visibility="hidden"/>
+          <line id="hm-body" x1="135" y1="71" x2="135" y2="125" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round" visibility="hidden"/>
+          <line id="hm-arm-l" x1="135" y1="88" x2="110" y2="110" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round" visibility="hidden"/>
+          <line id="hm-arm-r" x1="135" y1="88" x2="160" y2="110" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round" visibility="hidden"/>
+          <line id="hm-leg-l" x1="135" y1="125" x2="113" y2="160" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round" visibility="hidden"/>
+          <line id="hm-leg-r" x1="135" y1="125" x2="157" y2="160" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round" visibility="hidden"/>
+        </svg>
+        <div id="hangmanWord" style="font-size:1.35rem;font-weight:700;letter-spacing:3px;font-family:monospace;margin-bottom:6px;word-break:break-word;"></div>
         <p class="muted" id="hangmanTries" style="margin:0 0 12px;"></p>
         <div id="hangmanKeyboard" class="hangman-keyboard"></div>
         <p id="hangmanMsg" style="font-weight:700;margin-top:10px;min-height:1.4em;"></p>
@@ -1642,7 +1654,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 11:03 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 11:10 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -2009,9 +2021,9 @@ function checkSudoku(){
 }
 
 /* ===== Fun-Tab: Worträtsel / Galgenmännchen ===== */
-var hangmanWords = ['BUDVA','KOTOR','PODGORICA','SKUTARISEE','NJEGUSCH','FJORD','GEBIRGE','WANDERUNG','LEUCHTTURM','FAEHRE','STRAND','OLIVENOEL','FESTUNG','KLOSTER','SONNENUNTERGANG','SERPENTINE','MEERBLICK','MUSCHEL','SEGELBOOT','MARKTPLATZ','FLUGHAFEN','MIETWAGEN','REISEPASS','SONNENCREME','WASSERMELONE','EISDIELE','ALTSTADT','BERGDORF','NATIONALPARK','KUESTE'];
+var hangmanWords = ['BUDVA','KOTOR','PODGORICA','SKUTARISEE','NJEGUSCH','FJORD','GEBIRGE','WANDERUNG','LEUCHTTURM','FAEHRE','STRAND','OLIVENOEL','FESTUNG','KLOSTER','SONNENUNTERGANG','SERPENTINE','MEERBLICK','MUSCHEL','SEGELBOOT','MARKTPLATZ','FLUGHAFEN','MIETWAGEN','REISEPASS','SONNENCREME','WASSERMELONE','EISDIELE','ALTSTADT','BERGDORF','NATIONALPARK','KUESTE','GUTEN APPETIT','SCHOENE AUSSICHT','ROTER WEIN','BLAUES MEER','HOHE BERGE','ALTE STADT','LANGE FAHRT','GROSSER STRAND','GUTE REISE','KLARES WASSER'];
 var hangmanState = null;
-var hangmanFaces = ['🙂','😐','😟','😧','😨','😱','💀'];
+var hangmanParts = ['hm-head','hm-body','hm-arm-l','hm-arm-r','hm-leg-l','hm-leg-r'];
 function newHangman(){
   var word = hangmanWords[Math.floor(Math.random()*hangmanWords.length)];
   hangmanState = { word: word, guessed: [], tries: 6 };
@@ -2034,13 +2046,17 @@ function renderHangmanKeyboard(){
 function updateHangmanDisplay(){
   var wordEl = document.getElementById('hangmanWord');
   var triesEl = document.getElementById('hangmanTries');
-  var faceEl = document.getElementById('hangmanFace');
   if(!hangmanState || !wordEl) return;
   wordEl.textContent = hangmanState.word.split('').map(function(l){
+    if(l===' ') return '   ';
     return hangmanState.guessed.indexOf(l)>=0 ? l : '_';
   }).join(' ');
   if(triesEl) triesEl.textContent = 'Verbleibende Versuche: ' + hangmanState.tries;
-  if(faceEl) faceEl.textContent = hangmanFaces[6-hangmanState.tries] || '💀';
+  var wrongCount = 6 - hangmanState.tries;
+  hangmanParts.forEach(function(id, idx){
+    var el = document.getElementById(id);
+    if(el) el.setAttribute('visibility', idx < wrongCount ? 'visible' : 'hidden');
+  });
 }
 function guessHangmanLetter(letter, btn){
   if(!hangmanState || hangmanState.tries<=0) return;
@@ -2059,7 +2075,7 @@ function guessHangmanLetter(letter, btn){
 function checkHangmanEnd(){
   var msg = document.getElementById('hangmanMsg');
   if(!msg || !hangmanState) return;
-  var won = hangmanState.word.split('').every(function(l){ return hangmanState.guessed.indexOf(l)>=0; });
+  var won = hangmanState.word.split('').every(function(l){ return l===' ' || hangmanState.guessed.indexOf(l)>=0; });
   if(won){
     msg.style.color = 'var(--olive)';
     msg.textContent = '🎉 Richtig geraten: ' + hangmanState.word;
