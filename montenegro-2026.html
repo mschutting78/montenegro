@@ -1576,14 +1576,11 @@
     </div>
 
     <div class="fun-sub-panel" id="fun-aktivitaet">
-      <p class="muted" style="margin:0 0 12px;">Eine zufällige Idee, was man gerade tun könnte – live abgerufen.</p>
+      <p class="muted" style="margin:0 0 12px;">Eine zufällige Idee, was man gerade tun könnte – direkt im Browser erzeugt, funktioniert auch ohne Internetverbindung.</p>
       <div class="card" style="text-align:center;">
-        <p class="muted" id="activityStatus">Lade Idee…</p>
         <p id="activityText" style="font-size:1.05rem;line-height:1.6;font-weight:600;"></p>
-        <p id="activityMeta" class="muted" style="font-size:.8rem;"></p>
         <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:8px;" onclick="loadActivity()">🔄 Neue Idee</button>
       </div>
-      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://bored-api.appbrewery.com/" target="_blank">Bored API</a>.</div>
     </div>
 
     <div class="fun-sub-panel" id="fun-avatar">
@@ -1619,7 +1616,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 10:11 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 10:18 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -2108,22 +2105,39 @@ function loadPokemon(){
   });
 }
 
-/* ===== Fun-Tab: Spontane Aktivitäts-Idee (Bored API Fork) ===== */
+/* ===== Fun-Tab: Spontane Aktivitäts-Idee (client-seitige Liste) ===== */
+var activityIdeas = [
+  'Spielt "Ich sehe was, was du nicht siehst" – wer als Erstes errät, darf sich das nächste Ding aussuchen.',
+  'Zählt, wie viele rote Autos ihr in den nächsten 5 Minuten seht.',
+  'Schreibt eine Postkarte an jemanden zuhause.',
+  'Denkt euch eine Geschichte aus, bei der jeder abwechselnd einen Satz dazu erfindet.',
+  'Macht ein Foto von etwas, das die Farbe Rot hat – wie auf der montenegrinischen Flagge.',
+  'Spielt eine Runde "Stadt, Land, Fluss" mit Ländern und Städten am Balkan.',
+  'Überlegt euch einen Spitznamen für das Mietauto.',
+  'Wer kann am längsten auf einem Bein stehen?',
+  'Malt gemeinsam die montenegrinische Flagge auf ein Blatt Papier.',
+  'Ratet, wie hoch der nächste Berg ist, den ihr seht – und prüft es dann nach.',
+  'Erfindet ein Geheimzeichen, das nur eure Familie versteht.',
+  'Sucht nach fünf verschiedenen Vögeln oder Tieren am Wegesrand.',
+  'Spielt "Wackelpudding": Wer sich zuerst bewegt oder lacht, hat verloren.',
+  'Übt ein paar Wörter Montenegrinisch: Zdravo (Hallo), Hvala (Danke), Dobar dan (Guten Tag).',
+  'Denkt euch drei Fragen aus, die ihr den Großeltern nach der Reise stellen wollt.',
+  'Macht ein Wettrennen: Wer kann am schnellsten von 20 rückwärts zählen?',
+  'Sammelt kleine Steine oder Muscheln für ein Reise-Andenken.',
+  'Spielt "Ich packe meinen Koffer" mit Dingen, die ihr in Montenegro gesehen habt.',
+  'Überlegt euch, was euer Lieblingsmoment der bisherigen Reise war.',
+  'Zeichnet eine Landkarte von Montenegro aus dem Gedächtnis.',
+  'Spielt "Schnick Schnack Schnuck" – bester aus 5 Runden gewinnt.',
+  'Denkt euch einen kleinen Comic mit 4 Bildern über den heutigen Tag aus.',
+  'Fragt euch gegenseitig: Was war das Lustigste, das heute passiert ist?',
+  'Macht eine kleine Fotostrecke: 5 Fotos, die den Tag zusammenfassen.',
+  'Ratet gegenseitig Tiere anhand von Geräuschen, die ihr nachmacht.'
+];
 function loadActivity(){
-  var statusEl = document.getElementById('activityStatus');
   var textEl = document.getElementById('activityText');
-  var metaEl = document.getElementById('activityMeta');
-  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Idee…'; }
-  if(textEl) textEl.textContent = '';
-  if(metaEl) metaEl.textContent = '';
-  fetch('https://bored-api.appbrewery.com/random').then(function(r){ return r.json(); }).then(function(data){
-    if(!data || !data.activity) throw new Error('fehler');
-    if(statusEl) statusEl.style.display = 'none';
-    if(textEl) textEl.textContent = data.activity;
-    if(metaEl) metaEl.textContent = 'Kategorie: ' + data.type + (data.kidFriendly ? ' · kindergeeignet' : '');
-  }).catch(function(){
-    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Idee aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
-  });
+  if(!textEl) return;
+  var idea = activityIdeas[Math.floor(Math.random()*activityIdeas.length)];
+  textEl.textContent = idea;
 }
 
 /* ===== Fun-Tab: Avatar-Generator (RoboHash) ===== */
