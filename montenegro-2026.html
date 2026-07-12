@@ -1559,7 +1559,14 @@
         <p class="muted" id="hangmanTries" style="margin:0 0 12px;"></p>
         <div id="hangmanKeyboard" class="hangman-keyboard"></div>
         <p id="hangmanMsg" style="font-weight:700;margin-top:10px;min-height:1.4em;"></p>
-        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:8px;" onclick="newHangman()">🔄 Neues Wort</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:center;">
+          <select id="hangmanDifficulty" style="padding:6px 8px;border-radius:8px;border:1px solid #ddd;font-family:inherit;font-size:.82rem;" onchange="newHangman()">
+            <option value="easy">Leicht</option>
+            <option value="medium" selected>Mittel</option>
+            <option value="hard">Schwer</option>
+          </select>
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;" onclick="newHangman()">🔄 Neues Wort</button>
+        </div>
       </div>
     </div>
 
@@ -1654,7 +1661,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 11:10 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 11:22 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -2021,11 +2028,18 @@ function checkSudoku(){
 }
 
 /* ===== Fun-Tab: Worträtsel / Galgenmännchen ===== */
-var hangmanWords = ['BUDVA','KOTOR','PODGORICA','SKUTARISEE','NJEGUSCH','FJORD','GEBIRGE','WANDERUNG','LEUCHTTURM','FAEHRE','STRAND','OLIVENOEL','FESTUNG','KLOSTER','SONNENUNTERGANG','SERPENTINE','MEERBLICK','MUSCHEL','SEGELBOOT','MARKTPLATZ','FLUGHAFEN','MIETWAGEN','REISEPASS','SONNENCREME','WASSERMELONE','EISDIELE','ALTSTADT','BERGDORF','NATIONALPARK','KUESTE','GUTEN APPETIT','SCHOENE AUSSICHT','ROTER WEIN','BLAUES MEER','HOHE BERGE','ALTE STADT','LANGE FAHRT','GROSSER STRAND','GUTE REISE','KLARES WASSER'];
+var hangmanWordsByDifficulty = {
+  easy: ['BUDVA','KOTOR','FJORD','FAEHRE','STRAND','KUESTE'],
+  medium: ['GEBIRGE','FESTUNG','KLOSTER','MUSCHEL','NJEGUSCH','EISDIELE','ALTSTADT','BERGDORF','PODGORICA','WANDERUNG','OLIVENOEL','MEERBLICK','SEGELBOOT','FLUGHAFEN','MIETWAGEN','REISEPASS'],
+  hard: ['SKUTARISEE','LEUCHTTURM','SERPENTINE','MARKTPLATZ','SONNENCREME','WASSERMELONE','NATIONALPARK','SONNENUNTERGANG','GUTEN APPETIT','SCHOENE AUSSICHT','ROTER WEIN','BLAUES MEER','HOHE BERGE','ALTE STADT','LANGE FAHRT','GROSSER STRAND','GUTE REISE','KLARES WASSER']
+};
 var hangmanState = null;
 var hangmanParts = ['hm-head','hm-body','hm-arm-l','hm-arm-r','hm-leg-l','hm-leg-r'];
 function newHangman(){
-  var word = hangmanWords[Math.floor(Math.random()*hangmanWords.length)];
+  var diffEl = document.getElementById('hangmanDifficulty');
+  var diff = diffEl ? diffEl.value : 'medium';
+  var pool = hangmanWordsByDifficulty[diff] || hangmanWordsByDifficulty.medium;
+  var word = pool[Math.floor(Math.random()*pool.length)];
   hangmanState = { word: word, guessed: [], tries: 6 };
   renderHangmanKeyboard();
   updateHangmanDisplay();
