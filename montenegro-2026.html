@@ -1457,9 +1457,13 @@
       <button class="fun-sub-btn active" onclick="showFunSub('zitate',this)">💬 Zitate</button>
       <button class="fun-sub-btn" onclick="showFunSub('witze',this)">😂 Witze</button>
       <button class="fun-sub-btn" onclick="showFunSub('fakten',this)">🤯 Skurrilitäten</button>
-      <button class="fun-sub-btn" onclick="showFunSub('zahlen',this)">🧮 Zahlen-Fakten</button>
+      <button class="fun-sub-btn" onclick="showFunSub('quiz',this)">🧠 Quizfrage</button>
       <button class="fun-sub-btn" onclick="showFunSub('sudoku',this)">🔢 Sudoku</button>
       <button class="fun-sub-btn" onclick="showFunSub('galgenmaennchen',this)">🔤 Worträtsel</button>
+      <button class="fun-sub-btn" onclick="showFunSub('tierfoto',this)">🐾 Tierfoto</button>
+      <button class="fun-sub-btn" onclick="showFunSub('pokemon',this)">🎮 Pokémon</button>
+      <button class="fun-sub-btn" onclick="showFunSub('aktivitaet',this)">💡 Idee</button>
+      <button class="fun-sub-btn" onclick="showFunSub('avatar',this)">🎨 Avatar</button>
     </div>
 
     <div class="fun-sub-panel active" id="fun-zitate">
@@ -1500,16 +1504,20 @@
       <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://uselessfacts.jsph.pl/" target="_blank">uselessfacts.jsph.pl</a>.</div>
     </div>
 
-    <div class="fun-sub-panel" id="fun-zahlen">
-      <p class="muted" style="margin:0 0 12px;">Eine zufällige Zahlen-Kuriosität, live abgerufen über die Numbers API.</p>
+    <div class="fun-sub-panel" id="fun-quiz">
+      <p class="muted" style="margin:0 0 12px;">Eine zufällige Quizfrage (Allgemeinwissen), live abgerufen über API Ninjas.</p>
       <div class="card" style="text-align:center;">
-        <div id="numberBox">
-          <p class="muted" id="numberStatus">Lade Zahlen-Fakt…</p>
-          <p id="numberText" style="font-size:1rem;line-height:1.6;"></p>
+        <div id="quizBox">
+          <p class="muted" id="quizStatus">Lade Quizfrage…</p>
+          <p id="quizQuestion" style="font-size:1rem;line-height:1.6;font-weight:600;"></p>
+          <p id="quizAnswer" style="font-size:1rem;line-height:1.6;color:var(--sea);font-weight:700;display:none;"></p>
         </div>
-        <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadNumberFact()">🔄 Neue Zahlen-Kuriosität</button>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;background:var(--olive);" onclick="revealQuizAnswer()">👁️ Antwort zeigen</button>
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;" onclick="loadQuiz()">🔄 Neue Quizfrage</button>
+        </div>
       </div>
-      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="http://numbersapi.com/" target="_blank">numbersapi.com</a>.</div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://api-ninjas.com/" target="_blank">api-ninjas.com</a> (Fragen sind auf Englisch).</div>
     </div>
 
     <div class="fun-sub-panel" id="fun-sudoku">
@@ -1541,6 +1549,55 @@
       </div>
     </div>
 
+    <div class="fun-sub-panel" id="fun-tierfoto">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliges Hunde- oder Katzenfoto – live abgerufen.</p>
+      <div class="card" style="text-align:center;">
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px;">
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;" onclick="loadAnimalPhoto('dog')">🐶 Hund</button>
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;background:var(--olive);" onclick="loadAnimalPhoto('cat')">🐱 Katze</button>
+        </div>
+        <p class="muted" id="animalStatus">Wähle Hund oder Katze…</p>
+        <img id="animalImg" style="display:none;max-width:100%;border-radius:12px;max-height:320px;object-fit:cover;" alt="Zufälliges Tierfoto">
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quellen: <a href="https://dog.ceo/dog-api/" target="_blank">dog.ceo</a>, <a href="https://thecatapi.com/" target="_blank">thecatapi.com</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-pokemon">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliges Pokémon mit Bild und Werten – live abgerufen über die PokeAPI.</p>
+      <div class="card" style="text-align:center;">
+        <p class="muted" id="pokemonStatus">Lade Pokémon…</p>
+        <img id="pokemonImg" style="display:none;width:140px;height:140px;margin:0 auto;image-rendering:pixelated;" alt="Zufälliges Pokémon">
+        <p id="pokemonName" style="font-size:1.1rem;font-weight:700;margin:6px 0 2px;text-transform:capitalize;"></p>
+        <p id="pokemonTypes" style="margin:0 0 8px;"></p>
+        <p id="pokemonStats" class="muted" style="font-size:.8rem;"></p>
+        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:10px;" onclick="loadPokemon()">🔄 Neues Pokémon</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://pokeapi.co/" target="_blank">pokeapi.co</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-aktivitaet">
+      <p class="muted" style="margin:0 0 12px;">Eine zufällige Idee, was man gerade tun könnte – live abgerufen.</p>
+      <div class="card" style="text-align:center;">
+        <p class="muted" id="activityStatus">Lade Idee…</p>
+        <p id="activityText" style="font-size:1.05rem;line-height:1.6;font-weight:600;"></p>
+        <p id="activityMeta" class="muted" style="font-size:.8rem;"></p>
+        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:8px;" onclick="loadActivity()">🔄 Neue Idee</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://bored-api.appbrewery.com/" target="_blank">Bored API</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-avatar">
+      <p class="muted" style="margin:0 0 12px;">Tippt einen beliebigen Namen (z.B. Julia oder Johanna) ein und erzeugt daraus einen witzigen Fantasie-Avatar. Gleicher Name = immer der gleiche Avatar!</p>
+      <div class="card" style="text-align:center;">
+        <input id="avatarInput" type="text" placeholder="Name eingeben…" style="padding:8px 10px;border-radius:8px;border:1px solid #ddd;font-family:inherit;font-size:.9rem;width:70%;max-width:220px;margin-bottom:10px;">
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px;">
+          <button class="modal-close" style="width:auto;padding:8px 16px;margin:0;" onclick="loadAvatar()">🎨 Avatar erzeugen</button>
+        </div>
+        <img id="avatarImg" style="display:none;width:160px;height:160px;margin:0 auto;border-radius:12px;background:#eef2f5;" alt="Fantasie-Avatar">
+      </div>
+      <div class="note" style="margin-top:4px;">Läuft direkt im Browser, benötigt Internetverbindung fürs Laden des Bilds. Quelle: <a href="https://robohash.org/" target="_blank">robohash.org</a>.</div>
+    </div>
+
   </section>
 
 </main>
@@ -1562,7 +1619,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 09:54 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 10:11 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1603,11 +1660,23 @@ function showTab(name, btn){
   btn.classList.add('active');
   window.scrollTo(0,0);
 }
+var funLoaded = {};
 function showFunSub(name, btn){
   document.querySelectorAll('.fun-sub-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('fun-'+name).classList.add('active');
   document.querySelectorAll('.fun-sub-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
+  if(!funLoaded[name]){
+    funLoaded[name] = true;
+    if(name==='witze') loadJoke();
+    if(name==='fakten') loadFact();
+    if(name==='quiz') loadQuiz();
+    if(name==='sudoku') newSudoku();
+    if(name==='galgenmaennchen') newHangman();
+    if(name==='tierfoto') loadAnimalPhoto('dog');
+    if(name==='pokemon') loadPokemon();
+    if(name==='aktivitaet') loadActivity();
+  }
 }
 function toggleDay(head){
   var day = head.parentElement;
@@ -1654,11 +1723,7 @@ window.addEventListener('load', function(){
   setInterval(updateCountdown, 1000);
   loadLiveWeather();
   loadQuote();
-  loadJoke();
-  loadFact();
-  loadNumberFact();
-  newSudoku();
-  newHangman();
+  funLoaded.zitate = true;
 });
 
 function loadQuote(){
@@ -1766,19 +1831,29 @@ function loadFact(){
   });
 }
 
-/* ===== Fun-Tab: Zahlen-Fakten (numbersapi.com) ===== */
-function loadNumberFact(){
-  var statusEl = document.getElementById('numberStatus');
-  var textEl = document.getElementById('numberText');
-  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Zahlen-Fakt…'; }
-  if(textEl) textEl.textContent = '';
-  fetch('https://numbersapi.com/random/trivia?json').then(function(r){ return r.json(); }).then(function(data){
-    if(!data || !data.text) throw new Error('fehler');
+/* ===== Fun-Tab: Quizfrage (API Ninjas Trivia API) ===== */
+function loadQuiz(){
+  var statusEl = document.getElementById('quizStatus');
+  var qEl = document.getElementById('quizQuestion');
+  var aEl = document.getElementById('quizAnswer');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Quizfrage…'; }
+  if(qEl) qEl.textContent = '';
+  if(aEl){ aEl.textContent = ''; aEl.style.display='none'; }
+  fetch('https://api.api-ninjas.com/v1/trivia', {
+    headers: { 'X-Api-Key': 'valB0sV2qUCcpXfOL14MF8IihHDHvKn551RmP1Gf' }
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.length) throw new Error('fehler');
+    var t = data[0];
     if(statusEl) statusEl.style.display='none';
-    if(textEl) textEl.textContent = data.text;
+    if(qEl) qEl.textContent = t.question;
+    if(aEl) aEl.textContent = 'Antwort: ' + t.answer;
   }).catch(function(){
-    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Quizfrage aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
   });
+}
+function revealQuizAnswer(){
+  var aEl = document.getElementById('quizAnswer');
+  if(aEl) aEl.style.display = 'block';
 }
 
 /* ===== Fun-Tab: Sudoku (client-seitig generiert) ===== */
@@ -1974,6 +2049,92 @@ function disableHangmanKeyboard(){
   var kb = document.getElementById('hangmanKeyboard');
   if(!kb) return;
   kb.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
+}
+
+/* ===== Fun-Tab: Tierfoto (dog.ceo / thecatapi.com) ===== */
+function loadAnimalPhoto(kind){
+  var statusEl = document.getElementById('animalStatus');
+  var imgEl = document.getElementById('animalImg');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Foto…'; }
+  if(imgEl) imgEl.style.display = 'none';
+  var url = kind==='cat' ? 'https://api.thecatapi.com/v1/images/search' : 'https://dog.ceo/api/breeds/image/random';
+  fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var photoUrl = kind==='cat' ? (data && data[0] && data[0].url) : (data && data.message);
+    if(!photoUrl) throw new Error('fehler');
+    if(imgEl){
+      imgEl.onload = function(){ if(statusEl) statusEl.style.display='none'; imgEl.style.display='block'; };
+      imgEl.src = photoUrl;
+    }
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Foto aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Pokémon-Zufallsgenerator (PokeAPI) ===== */
+function loadPokemon(){
+  var statusEl = document.getElementById('pokemonStatus');
+  var imgEl = document.getElementById('pokemonImg');
+  var nameEl = document.getElementById('pokemonName');
+  var typesEl = document.getElementById('pokemonTypes');
+  var statsEl = document.getElementById('pokemonStats');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Pokémon…'; }
+  if(imgEl) imgEl.style.display = 'none';
+  if(nameEl) nameEl.textContent = '';
+  if(typesEl) typesEl.innerHTML = '';
+  if(statsEl) statsEl.textContent = '';
+  var id = Math.floor(Math.random()*1010) + 1;
+  fetch('https://pokeapi.co/api/v2/pokemon/' + id).then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.name) throw new Error('fehler');
+    var sprite = data.sprites && (data.sprites.front_default || (data.sprites.other && data.sprites.other['official-artwork'] && data.sprites.other['official-artwork'].front_default));
+    if(imgEl && sprite){
+      imgEl.onload = function(){ if(statusEl) statusEl.style.display='none'; imgEl.style.display='inline-block'; };
+      imgEl.src = sprite;
+    } else if(statusEl){
+      statusEl.style.display='none';
+    }
+    if(nameEl) nameEl.textContent = '#' + data.id + ' ' + data.name;
+    if(typesEl){
+      typesEl.innerHTML = (data.types||[]).map(function(t){
+        return '<span class="pill blue" style="margin:0 3px;">'+t.type.name+'</span>';
+      }).join('');
+    }
+    if(statsEl){
+      var h = (data.height/10).toFixed(1) + ' m';
+      var w = (data.weight/10).toFixed(1) + ' kg';
+      statsEl.textContent = 'Größe: ' + h + ' · Gewicht: ' + w;
+    }
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Pokémon aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Spontane Aktivitäts-Idee (Bored API Fork) ===== */
+function loadActivity(){
+  var statusEl = document.getElementById('activityStatus');
+  var textEl = document.getElementById('activityText');
+  var metaEl = document.getElementById('activityMeta');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Idee…'; }
+  if(textEl) textEl.textContent = '';
+  if(metaEl) metaEl.textContent = '';
+  fetch('https://bored-api.appbrewery.com/random').then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.activity) throw new Error('fehler');
+    if(statusEl) statusEl.style.display = 'none';
+    if(textEl) textEl.textContent = data.activity;
+    if(metaEl) metaEl.textContent = 'Kategorie: ' + data.type + (data.kidFriendly ? ' · kindergeeignet' : '');
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Idee aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Avatar-Generator (RoboHash) ===== */
+function loadAvatar(){
+  var input = document.getElementById('avatarInput');
+  var imgEl = document.getElementById('avatarImg');
+  var text = input && input.value.trim() ? input.value.trim() : 'Montenegro2026';
+  if(imgEl){
+    imgEl.style.display = 'block';
+    imgEl.src = 'https://robohash.org/' + encodeURIComponent(text) + '.png?set=set2&size=300x300';
+  }
 }
 </script>
 
