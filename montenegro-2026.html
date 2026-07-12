@@ -1464,6 +1464,8 @@
       <button class="fun-sub-btn" onclick="showFunSub('pokemon',this)">🎮 Pokémon</button>
       <button class="fun-sub-btn" onclick="showFunSub('aktivitaet',this)">💡 Idee</button>
       <button class="fun-sub-btn" onclick="showFunSub('avatar',this)">🎨 Avatar</button>
+      <button class="fun-sub-btn" onclick="showFunSub('disney',this)">🏰 Disney</button>
+      <button class="fun-sub-btn" onclick="showFunSub('emoji',this)">😀 Emoji</button>
     </div>
 
     <div class="fun-sub-panel active" id="fun-zitate">
@@ -1595,6 +1597,30 @@
       <div class="note" style="margin-top:4px;">Läuft direkt im Browser, benötigt Internetverbindung fürs Laden des Bilds. Quelle: <a href="https://robohash.org/" target="_blank">robohash.org</a>.</div>
     </div>
 
+    <div class="fun-sub-panel" id="fun-disney">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliger Disney-Charakter mit Bild – live abgerufen.</p>
+      <div class="card" style="text-align:center;">
+        <p class="muted" id="disneyStatus">Lade Charakter…</p>
+        <img id="disneyImg" style="display:none;max-width:100%;max-height:260px;border-radius:12px;object-fit:contain;" alt="Disney-Charakter">
+        <p id="disneyName" style="font-size:1.1rem;font-weight:700;margin:8px 0 2px;"></p>
+        <p id="disneyFilms" class="muted" style="font-size:.8rem;"></p>
+        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:10px;" onclick="loadDisney()">🔄 Neuer Charakter</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://disneyapi.dev/" target="_blank">disneyapi.dev</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-emoji">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliges Emoji mit Namen – live abgerufen.</p>
+      <div class="card" style="text-align:center;">
+        <p class="muted" id="emojiStatus">Lade Emoji…</p>
+        <div id="emojiChar" style="font-size:3.5rem;display:none;"></div>
+        <p id="emojiName" style="font-weight:700;margin:6px 0 2px;text-transform:capitalize;"></p>
+        <p id="emojiCategory" class="muted" style="font-size:.8rem;"></p>
+        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:10px;" onclick="loadEmoji()">🔄 Neues Emoji</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://emojihub.yurace.pro/" target="_blank">emojihub.yurace.pro</a>.</div>
+    </div>
+
   </section>
 
 </main>
@@ -1616,7 +1642,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 10:18 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 10:46 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1673,6 +1699,8 @@ function showFunSub(name, btn){
     if(name==='tierfoto') loadAnimalPhoto('dog');
     if(name==='pokemon') loadPokemon();
     if(name==='aktivitaet') loadActivity();
+    if(name==='disney') loadDisney();
+    if(name==='emoji') loadEmoji();
   }
 }
 function toggleDay(head){
@@ -2149,6 +2177,59 @@ function loadAvatar(){
     imgEl.style.display = 'block';
     imgEl.src = 'https://robohash.org/' + encodeURIComponent(text) + '.png?set=set2&size=300x300';
   }
+}
+
+/* ===== Fun-Tab: Disney-Charakter (disneyapi.dev) ===== */
+function loadDisney(){
+  var statusEl = document.getElementById('disneyStatus');
+  var imgEl = document.getElementById('disneyImg');
+  var nameEl = document.getElementById('disneyName');
+  var filmsEl = document.getElementById('disneyFilms');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Charakter…'; }
+  if(imgEl) imgEl.style.display = 'none';
+  if(nameEl) nameEl.textContent = '';
+  if(filmsEl) filmsEl.textContent = '';
+  fetch('https://api.disneyapi.dev/character/random').then(function(r){ return r.json(); }).then(function(data){
+    var list = data && data.data;
+    if(!list || !list.length) throw new Error('fehler');
+    var withImage = list.filter(function(c){ return c.imageUrl; });
+    var pool = withImage.length ? withImage : list;
+    var c = pool[Math.floor(Math.random()*pool.length)];
+    if(statusEl) statusEl.style.display = 'none';
+    if(nameEl) nameEl.textContent = c.name;
+    if(c.imageUrl && imgEl){
+      imgEl.onload = function(){ imgEl.style.display = 'inline-block'; };
+      imgEl.src = c.imageUrl;
+    }
+    var appearances = (c.films||[]).concat(c.tvShows||[]);
+    if(filmsEl) filmsEl.textContent = appearances.length ? ('Bekannt aus: ' + appearances.slice(0,3).join(', ')) : '';
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Charakter aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Emoji-Generator (emojihub.yurace.pro) ===== */
+function loadEmoji(){
+  var statusEl = document.getElementById('emojiStatus');
+  var charEl = document.getElementById('emojiChar');
+  var nameEl = document.getElementById('emojiName');
+  var catEl = document.getElementById('emojiCategory');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Lade Emoji…'; }
+  if(charEl) charEl.style.display = 'none';
+  if(nameEl) nameEl.textContent = '';
+  if(catEl) catEl.textContent = '';
+  fetch('https://emojihub.yurace.pro/api/random').then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.unicode) throw new Error('fehler');
+    var chars = data.unicode.map(function(u){
+      return String.fromCodePoint(parseInt(u.replace('U+',''), 16));
+    }).join('');
+    if(statusEl) statusEl.style.display = 'none';
+    if(charEl){ charEl.textContent = chars; charEl.style.display = 'block'; }
+    if(nameEl) nameEl.textContent = data.name;
+    if(catEl) catEl.textContent = 'Kategorie: ' + data.category;
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Emoji aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
 }
 </script>
 
