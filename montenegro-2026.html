@@ -284,6 +284,48 @@
   .rest .rname{font-weight:700;font-size:.94rem;display:flex;justify-content:space-between;gap:8px;}
   .rest .rmeta{font-size:.78rem;color:var(--muted);margin:2px 0 4px;}
   .rest p{margin:4px 0 0;font-size:.86rem;line-height:1.5;}
+  /* Fun tab: sub-navigation + mini-games */
+  .fun-subnav{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  .fun-subnav::-webkit-scrollbar{display:none;}
+  .fun-sub-btn{
+    flex:0 0 auto;
+    background:#fff;border:1px solid #e7e1d4;
+    color:var(--muted);
+    font-family:inherit;font-size:.78rem;font-weight:600;
+    padding:8px 12px;border-radius:999px;white-space:nowrap;
+  }
+  .fun-sub-btn.active{background:var(--sea);color:#fff;border-color:var(--sea);}
+  .fun-sub-panel{display:none;}
+  .fun-sub-panel.active{display:block;animation:fade .2s ease;}
+  .sudoku-grid{
+    display:grid;grid-template-columns:repeat(9,1fr);
+    gap:0;max-width:342px;margin:0 auto;
+    border:2px solid var(--ink);background:var(--ink);
+  }
+  .sudoku-grid input{
+    width:100%;aspect-ratio:1/1;
+    border:1px solid #ccc;
+    text-align:center;
+    font-size:1rem;font-weight:700;
+    font-family:inherit;
+    background:#fff;color:var(--ink);
+    padding:0;
+  }
+  .sudoku-grid input:disabled{background:#eef2f5;color:var(--sea);}
+  .sudoku-grid input.err{background:#fbe3da;color:#a94a30;}
+  .sudoku-grid input.ok{background:#e1efe4;}
+  .sudoku-cell-r3{border-bottom:2px solid var(--ink);}
+  .sudoku-cell-c3{border-right:2px solid var(--ink);}
+  .hangman-keyboard{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:400px;margin:0 auto;}
+  .hangman-keyboard button{
+    width:30px;height:34px;
+    border:1px solid #ddd;border-radius:6px;
+    background:#fff;font-family:inherit;font-weight:700;font-size:.82rem;
+    color:var(--ink);
+  }
+  .hangman-keyboard button:disabled{opacity:.35;}
+  .hangman-keyboard button.wrong{background:#fbe3da;border-color:#e07a5f;}
+  .hangman-keyboard button.right{background:#e1efe4;border-color:#6a8f75;}
 </style>
 </head>
 <body>
@@ -1408,20 +1450,97 @@
 
   </section>
 
-  <!-- ===== TAB: ZITATE ===== -->
-  <section id="tab-zitate" class="tab-panel">
-    <p class="muted" style="margin:0 0 12px;">Ein kleines Extra für unterwegs – ein zufälliges Zitat, live abgerufen über die API Ninjas Quotes API.</p>
+  <!-- ===== TAB: FUN ===== -->
+  <section id="tab-fun" class="tab-panel">
 
-    <div class="card" style="text-align:center;">
-      <div id="quoteBox">
-        <p class="muted" id="quoteStatus">Lade Zitat…</p>
-        <p id="quoteText" style="font-size:1.05rem;font-style:italic;line-height:1.6;"></p>
-        <p id="quoteAuthor" style="font-weight:700;color:var(--sea);"></p>
-      </div>
-      <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadQuote()">🔄 Neues Zitat</button>
+    <div class="fun-subnav">
+      <button class="fun-sub-btn active" onclick="showFunSub('zitate',this)">💬 Zitate</button>
+      <button class="fun-sub-btn" onclick="showFunSub('witze',this)">😂 Witze</button>
+      <button class="fun-sub-btn" onclick="showFunSub('fakten',this)">🤯 Skurrilitäten</button>
+      <button class="fun-sub-btn" onclick="showFunSub('zahlen',this)">🧮 Zahlen-Fakten</button>
+      <button class="fun-sub-btn" onclick="showFunSub('sudoku',this)">🔢 Sudoku</button>
+      <button class="fun-sub-btn" onclick="showFunSub('galgenmaennchen',this)">🔤 Worträtsel</button>
     </div>
 
-    <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://api-ninjas.com/" target="_blank">api-ninjas.com</a>.</div>
+    <div class="fun-sub-panel active" id="fun-zitate">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliges Zitat, live abgerufen über die API Ninjas Quotes API.</p>
+      <div class="card" style="text-align:center;">
+        <div id="quoteBox">
+          <p class="muted" id="quoteStatus">Lade Zitat…</p>
+          <p id="quoteText" style="font-size:1.05rem;font-style:italic;line-height:1.6;"></p>
+          <p id="quoteAuthor" style="font-weight:700;color:var(--sea);"></p>
+        </div>
+        <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadQuote()">🔄 Neues Zitat</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://api-ninjas.com/" target="_blank">api-ninjas.com</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-witze">
+      <p class="muted" style="margin:0 0 12px;">Ein zufälliger Witz, live abgerufen über die JokeAPI.</p>
+      <div class="card" style="text-align:center;">
+        <div id="jokeBox">
+          <p class="muted" id="jokeStatus">Lade Witz…</p>
+          <p id="jokeSetup" style="font-size:1rem;line-height:1.6;font-weight:600;"></p>
+          <p id="jokeDelivery" style="font-size:1rem;line-height:1.6;color:var(--sea);"></p>
+        </div>
+        <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadJoke()">🔄 Neuer Witz</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://jokeapi.dev/" target="_blank">JokeAPI</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-fakten">
+      <p class="muted" style="margin:0 0 12px;">Eine zufällige, meist skurrile Tatsache – live abgerufen.</p>
+      <div class="card" style="text-align:center;">
+        <div id="factBox">
+          <p class="muted" id="factStatus">Lade Skurrilität…</p>
+          <p id="factText" style="font-size:1rem;line-height:1.6;"></p>
+        </div>
+        <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadFact()">🔄 Neue Skurrilität</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="https://uselessfacts.jsph.pl/" target="_blank">uselessfacts.jsph.pl</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-zahlen">
+      <p class="muted" style="margin:0 0 12px;">Eine zufällige Zahlen-Kuriosität, live abgerufen über die Numbers API.</p>
+      <div class="card" style="text-align:center;">
+        <div id="numberBox">
+          <p class="muted" id="numberStatus">Lade Zahlen-Fakt…</p>
+          <p id="numberText" style="font-size:1rem;line-height:1.6;"></p>
+        </div>
+        <button class="modal-close" style="width:auto;padding:10px 22px;margin-top:10px;" onclick="loadNumberFact()">🔄 Neue Zahlen-Kuriosität</button>
+      </div>
+      <div class="note" style="margin-top:4px;">Benötigt Internetverbindung. Quelle: <a href="http://numbersapi.com/" target="_blank">numbersapi.com</a>.</div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-sudoku">
+      <p class="muted" style="margin:0 0 12px;">Sudoku wird direkt im Browser erzeugt und geprüft – funktioniert auch ohne Internetverbindung.</p>
+      <div class="card">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;justify-content:center;">
+          <select id="sudokuDifficulty" style="padding:6px 8px;border-radius:8px;border:1px solid #ddd;font-family:inherit;font-size:.82rem;">
+            <option value="easy">Leicht</option>
+            <option value="medium" selected>Mittel</option>
+            <option value="hard">Schwer</option>
+          </select>
+          <button class="modal-close" style="width:auto;padding:8px 14px;margin:0;" onclick="newSudoku()">🔄 Neues Sudoku</button>
+          <button class="modal-close" style="width:auto;padding:8px 14px;margin:0;background:var(--olive);" onclick="checkSudoku()">✓ Prüfen</button>
+        </div>
+        <div id="sudokuGrid" class="sudoku-grid"></div>
+        <p class="muted" id="sudokuMsg" style="text-align:center;margin-top:10px;min-height:1.2em;"></p>
+      </div>
+    </div>
+
+    <div class="fun-sub-panel" id="fun-galgenmaennchen">
+      <p class="muted" style="margin:0 0 12px;">Galgenmännchen – errate das Wort Buchstabe für Buchstabe. Funktioniert auch ohne Internetverbindung.</p>
+      <div class="card" style="text-align:center;">
+        <div id="hangmanFace" style="font-size:2.4rem;margin-bottom:8px;">🙂</div>
+        <div id="hangmanWord" style="font-size:1.5rem;font-weight:700;letter-spacing:4px;font-family:monospace;margin-bottom:6px;"></div>
+        <p class="muted" id="hangmanTries" style="margin:0 0 12px;"></p>
+        <div id="hangmanKeyboard" class="hangman-keyboard"></div>
+        <p id="hangmanMsg" style="font-weight:700;margin-top:10px;min-height:1.4em;"></p>
+        <button class="modal-close" style="width:auto;padding:8px 16px;margin-top:8px;" onclick="newHangman()">🔄 Neues Wort</button>
+      </div>
+    </div>
+
   </section>
 
 </main>
@@ -1433,7 +1552,7 @@
   <button onclick="showTab('praktisch',this)"><span class="ic">ℹ️</span>Praktisch</button>
   <button onclick="showTab('mehr',this)"><span class="ic">➕</span>Mehr</button>
   <button onclick="showTab('geschichte',this)"><span class="ic">📜</span>Geschichte</button>
-  <button onclick="showTab('zitate',this)"><span class="ic">💬</span>Zitate</button>
+  <button onclick="showTab('fun',this)"><span class="ic">🎮</span>Fun</button>
 </nav>
 
 <div class="modal-overlay" id="infoModal" onclick="if(event.target===this) closeInfoModal()">
@@ -1443,7 +1562,7 @@
     <p>Erstellt und laufend aktualisiert von Markus mit Unterstützung von <b>Claude</b> (KI-Assistent von Anthropic).</p>
     <p>Alle Inhalte (Zeiten, Preise, Öffnungszeiten, Fahrpläne etc.) wurden nach bestem Wissen recherchiert, jedoch ohne Gewähr – bitte insbesondere Zeiten und Preise vor Ort nochmal selbst prüfen.</p>
     <p class="muted" style="margin-top:12px;">Diese Seite wird nicht öffentlich beworben und dient ausschließlich dem privaten Gebrauch der Reiseteilnehmer.</p>
-    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 11.07.2026, 23:22 Uhr</p>
+    <p class="muted" id="versionStamp" style="text-align:center;margin-top:14px;">Stand: 12.07.2026, 09:54 Uhr</p>
     <button class="modal-close" onclick="closeInfoModal()">Schließen</button>
   </div>
 </div>
@@ -1483,6 +1602,12 @@ function showTab(name, btn){
   document.querySelectorAll('nav.tabbar button').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   window.scrollTo(0,0);
+}
+function showFunSub(name, btn){
+  document.querySelectorAll('.fun-sub-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('fun-'+name).classList.add('active');
+  document.querySelectorAll('.fun-sub-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
 }
 function toggleDay(head){
   var day = head.parentElement;
@@ -1529,6 +1654,11 @@ window.addEventListener('load', function(){
   setInterval(updateCountdown, 1000);
   loadLiveWeather();
   loadQuote();
+  loadJoke();
+  loadFact();
+  loadNumberFact();
+  newSudoku();
+  newHangman();
 });
 
 function loadQuote(){
@@ -1596,6 +1726,254 @@ function loadLiveWeather(){
     var statusEl = document.getElementById('liveWeatherStatus');
     if(statusEl) statusEl.textContent = 'Wetterdaten aktuell nicht abrufbar (offline oder Netzwerkfehler).';
   });
+}
+
+/* ===== Fun-Tab: Witze (JokeAPI) ===== */
+function loadJoke(){
+  var statusEl = document.getElementById('jokeStatus');
+  var setupEl = document.getElementById('jokeSetup');
+  var delEl = document.getElementById('jokeDelivery');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Witz…'; }
+  if(setupEl) setupEl.textContent = '';
+  if(delEl) delEl.textContent = '';
+  fetch('https://v2.jokeapi.dev/joke/Any?lang=de&safe-mode').then(function(r){ return r.json(); }).then(function(data){
+    if(!data || data.error) throw new Error('fehler');
+    if(statusEl) statusEl.style.display='none';
+    if(data.type==='twopart'){
+      if(setupEl) setupEl.textContent = data.setup;
+      if(delEl) delEl.textContent = data.delivery;
+    } else {
+      if(setupEl) setupEl.textContent = data.joke;
+      if(delEl) delEl.textContent = '';
+    }
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Witz aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Skurrilitäten (uselessfacts.jsph.pl) ===== */
+function loadFact(){
+  var statusEl = document.getElementById('factStatus');
+  var textEl = document.getElementById('factText');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Skurrilität…'; }
+  if(textEl) textEl.textContent = '';
+  fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=de').then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.text) throw new Error('fehler');
+    if(statusEl) statusEl.style.display='none';
+    if(textEl) textEl.textContent = data.text;
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Zahlen-Fakten (numbersapi.com) ===== */
+function loadNumberFact(){
+  var statusEl = document.getElementById('numberStatus');
+  var textEl = document.getElementById('numberText');
+  if(statusEl){ statusEl.style.display='block'; statusEl.textContent='Lade Zahlen-Fakt…'; }
+  if(textEl) textEl.textContent = '';
+  fetch('https://numbersapi.com/random/trivia?json').then(function(r){ return r.json(); }).then(function(data){
+    if(!data || !data.text) throw new Error('fehler');
+    if(statusEl) statusEl.style.display='none';
+    if(textEl) textEl.textContent = data.text;
+  }).catch(function(){
+    if(statusEl){ statusEl.style.display='block'; statusEl.textContent = 'Aktuell nicht abrufbar (offline oder Netzwerkfehler).'; }
+  });
+}
+
+/* ===== Fun-Tab: Sudoku (client-seitig generiert) ===== */
+var sudokuSolution = null;
+var sudokuPuzzle = null;
+function sudokuEmptyGrid(){
+  var g = [];
+  for(var i=0;i<9;i++){ g.push([0,0,0,0,0,0,0,0,0]); }
+  return g;
+}
+function sudokuShuffle(arr){
+  for(var i=arr.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t = arr[i]; arr[i]=arr[j]; arr[j]=t;
+  }
+  return arr;
+}
+function sudokuValid(grid,row,col,num){
+  for(var i=0;i<9;i++){
+    if(grid[row][i]===num) return false;
+    if(grid[i][col]===num) return false;
+  }
+  var br=Math.floor(row/3)*3, bc=Math.floor(col/3)*3;
+  for(var r=0;r<3;r++){
+    for(var c=0;c<3;c++){
+      if(grid[br+r][bc+c]===num) return false;
+    }
+  }
+  return true;
+}
+function sudokuSolve(grid){
+  for(var row=0;row<9;row++){
+    for(var col=0;col<9;col++){
+      if(grid[row][col]===0){
+        var nums = sudokuShuffle([1,2,3,4,5,6,7,8,9]);
+        for(var n=0;n<nums.length;n++){
+          var num = nums[n];
+          if(sudokuValid(grid,row,col,num)){
+            grid[row][col] = num;
+            if(sudokuSolve(grid)) return true;
+            grid[row][col] = 0;
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
+function generateSudoku(difficulty){
+  var grid = sudokuEmptyGrid();
+  sudokuSolve(grid);
+  var solution = grid.map(function(r){ return r.slice(); });
+  var puzzle = grid.map(function(r){ return r.slice(); });
+  var clues = difficulty==='easy' ? 40 : (difficulty==='hard' ? 24 : 32);
+  var cellsToRemove = 81 - clues;
+  var positions = [];
+  for(var r=0;r<9;r++){ for(var c=0;c<9;c++){ positions.push([r,c]); } }
+  sudokuShuffle(positions);
+  for(var i=0;i<cellsToRemove;i++){
+    puzzle[positions[i][0]][positions[i][1]] = 0;
+  }
+  return { puzzle: puzzle, solution: solution };
+}
+function newSudoku(){
+  var diffEl = document.getElementById('sudokuDifficulty');
+  var diff = diffEl ? diffEl.value : 'medium';
+  var result = generateSudoku(diff);
+  sudokuPuzzle = result.puzzle;
+  sudokuSolution = result.solution;
+  renderSudoku();
+  var msg = document.getElementById('sudokuMsg');
+  if(msg) msg.textContent = '';
+}
+function renderSudoku(){
+  var container = document.getElementById('sudokuGrid');
+  if(!container) return;
+  container.innerHTML = '';
+  for(var r=0;r<9;r++){
+    for(var c=0;c<9;c++){
+      var val = sudokuPuzzle[r][c];
+      var input = document.createElement('input');
+      input.setAttribute('type','tel');
+      input.setAttribute('inputmode','numeric');
+      input.setAttribute('maxlength','1');
+      input.dataset.row = r;
+      input.dataset.col = c;
+      if(val!==0){
+        input.value = val;
+        input.disabled = true;
+      }
+      if(c%3===2 && c!==8) input.classList.add('sudoku-cell-c3');
+      if(r%3===2 && r!==8) input.classList.add('sudoku-cell-r3');
+      input.addEventListener('input', function(e){
+        var v = e.target.value.replace(/[^1-9]/g,'');
+        e.target.value = v;
+        e.target.classList.remove('err','ok');
+      });
+      container.appendChild(input);
+    }
+  }
+}
+function checkSudoku(){
+  var container = document.getElementById('sudokuGrid');
+  if(!container || !sudokuSolution) return;
+  var inputs = container.querySelectorAll('input');
+  var correct = true;
+  var filled = true;
+  inputs.forEach(function(inp){
+    var r = parseInt(inp.dataset.row,10);
+    var c = parseInt(inp.dataset.col,10);
+    var v = inp.value ? parseInt(inp.value,10) : 0;
+    inp.classList.remove('err','ok');
+    if(inp.disabled) return;
+    if(v===0){ filled = false; return; }
+    if(v===sudokuSolution[r][c]){
+      inp.classList.add('ok');
+    } else {
+      inp.classList.add('err');
+      correct = false;
+    }
+  });
+  var msg = document.getElementById('sudokuMsg');
+  if(!msg) return;
+  if(!filled){ msg.textContent = 'Noch nicht alle Felder ausgefüllt.'; }
+  else if(correct){ msg.textContent = '🎉 Richtig gelöst!'; }
+  else { msg.textContent = 'Es gibt noch Fehler (rot markiert).'; }
+}
+
+/* ===== Fun-Tab: Worträtsel / Galgenmännchen ===== */
+var hangmanWords = ['BUDVA','KOTOR','PODGORICA','SKUTARISEE','NJEGUSCH','FJORD','GEBIRGE','WANDERUNG','LEUCHTTURM','FAEHRE','STRAND','OLIVENOEL','FESTUNG','KLOSTER','SONNENUNTERGANG','SERPENTINE','MEERBLICK','MUSCHEL','SEGELBOOT','MARKTPLATZ','FLUGHAFEN','MIETWAGEN','REISEPASS','SONNENCREME','WASSERMELONE','EISDIELE','ALTSTADT','BERGDORF','NATIONALPARK','KUESTE'];
+var hangmanState = null;
+var hangmanFaces = ['🙂','😐','😟','😧','😨','😱','💀'];
+function newHangman(){
+  var word = hangmanWords[Math.floor(Math.random()*hangmanWords.length)];
+  hangmanState = { word: word, guessed: [], tries: 6 };
+  renderHangmanKeyboard();
+  updateHangmanDisplay();
+  var msg = document.getElementById('hangmanMsg');
+  if(msg){ msg.textContent = ''; msg.style.color = ''; }
+}
+function renderHangmanKeyboard(){
+  var kb = document.getElementById('hangmanKeyboard');
+  if(!kb) return;
+  kb.innerHTML = '';
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(letter){
+    var btn = document.createElement('button');
+    btn.textContent = letter;
+    btn.onclick = function(){ guessHangmanLetter(letter, btn); };
+    kb.appendChild(btn);
+  });
+}
+function updateHangmanDisplay(){
+  var wordEl = document.getElementById('hangmanWord');
+  var triesEl = document.getElementById('hangmanTries');
+  var faceEl = document.getElementById('hangmanFace');
+  if(!hangmanState || !wordEl) return;
+  wordEl.textContent = hangmanState.word.split('').map(function(l){
+    return hangmanState.guessed.indexOf(l)>=0 ? l : '_';
+  }).join(' ');
+  if(triesEl) triesEl.textContent = 'Verbleibende Versuche: ' + hangmanState.tries;
+  if(faceEl) faceEl.textContent = hangmanFaces[6-hangmanState.tries] || '💀';
+}
+function guessHangmanLetter(letter, btn){
+  if(!hangmanState || hangmanState.tries<=0) return;
+  btn.disabled = true;
+  if(hangmanState.guessed.indexOf(letter)>=0) return;
+  hangmanState.guessed.push(letter);
+  if(hangmanState.word.indexOf(letter)===-1){
+    hangmanState.tries--;
+    btn.classList.add('wrong');
+  } else {
+    btn.classList.add('right');
+  }
+  updateHangmanDisplay();
+  checkHangmanEnd();
+}
+function checkHangmanEnd(){
+  var msg = document.getElementById('hangmanMsg');
+  if(!msg || !hangmanState) return;
+  var won = hangmanState.word.split('').every(function(l){ return hangmanState.guessed.indexOf(l)>=0; });
+  if(won){
+    msg.style.color = 'var(--olive)';
+    msg.textContent = '🎉 Richtig geraten: ' + hangmanState.word;
+    disableHangmanKeyboard();
+  } else if(hangmanState.tries<=0){
+    msg.style.color = '#a94a30';
+    msg.textContent = 'Verloren! Das Wort war: ' + hangmanState.word;
+    disableHangmanKeyboard();
+  }
+}
+function disableHangmanKeyboard(){
+  var kb = document.getElementById('hangmanKeyboard');
+  if(!kb) return;
+  kb.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
 }
 </script>
 
